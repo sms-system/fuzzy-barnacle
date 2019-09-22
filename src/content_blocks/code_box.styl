@@ -1,0 +1,43 @@
++b('code_box')
+  display block
+  font-family 'PT Mono', monospace
+  counter-reset line_no
+  margin 0
+
+  +e('line')
+    display block
+    font-size 12px
+    line-height 20px
+    min-height 20px
+    white-space pre-wrap
+    overflow-wrap break-word
+    word-wrap break-word
+    word-break break-all
+    position relative
+    padding 0 16px 0 70px
+
+    &:before
+      display block
+      position absolute
+      width 40px
+      left 0
+      top 0
+      text-align right
+      counter-increment line_no
+      content counter(line_no)
+
+  +e('token')
+    color #00234B
+
+    +m('comment')
+      color #8694A2
+
+    +m('reserved')
+      font-weight 600
+
+    +m('string')
+      color #005FBA
+
+    +m('func')
+      font-weight 600
+      color #005FBA

@@ -1,0 +1,76 @@
+include ../base
+<!DOCTYPE html>
+html(lang="ru")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Yandex Arcanum
+    link(href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap&subset=cyrillic" rel="stylesheet")
+    link(rel="stylesheet", href="../desktop.styl")
+
+  +b.BODY.layout
+    include ./components/header
+
+    +e.content
+      include ./components/breadcrumbs
+
+      +b.title
+        +e.H1.header arcadia
+        +b.dropdown.--in_title.--is_gray.__header_suffix(tabindex="0")
+          +e.visible_item trunk
+          +e.UL.menu_items
+            +e.LI.menu_item: +e.menu_link(href="#").
+              users/rudskoy/DEVTOOLS-43865
+              Last commit 1 min ago
+            +e.LI.menu_item: +e.menu_link(href="#") My repository
+            +e.LI.menu_item: +e.menu_link(href="#") Devtools-team repository
+        +e.subheader Last commit #[+b.link(href="#") c4d248] on #[+b.link(href="#") 20 Oct 2017, 12:24] by #[+b.SPAN.username robot-srch-releaser]
+
+      +b.NAV.tab-navigation
+        +e.menu_link.--is_active(href="#") Files
+        +e.menu_link(href="#") Branches
+
+      +b.TABLE.table(cellspacing="0")
+        +e.TR.header
+          +e.TH.cell Name
+          +e.TH.cell Last commit
+          +e.TH.cell Commit message
+          +e.TH.cell Committer
+          +e.TH.cell Updated
+        +e.TR.row
+          +e.TD.cell: +b.filename.--is_folder.--link(href="#") api
+          +e.TD.cell: +b.link(href="#") d53dsv
+          +e.TD.cell [vcs] move http to arc
+          +e.TD.cell: +b.username noxoomo
+          +e.TD.cell 4 s ago
+        +e.TR.row
+          +e.TD.cell: +b.filename.--is_folder.--link(href="#") ci
+          +e.TD.cell: +b.link(href="#") d53dsv
+          +e.TD.cell [vcs] test for empty commit message
+          +e.TD.cell: +b.username noxoomo
+          +e.TD.cell 1 min ago
+        +e.TR.row
+          +e.TD.cell: +b.filename.--is_folder.--link(href="#") contrib
+          +e.TD.cell: +b.link(href="#") d53dsv
+          +e.TD.cell [vcs] change owner to g:arc
+          +e.TD.cell: +b.username noxoomo
+          +e.TD.cell 16:25
+        +e.TR.row
+          +e.TD.cell: +b.filename.--other.--link(href="#") README.md
+          +e.TD.cell: +b.link(href="#") d53dsv
+          +e.TD.cell [vcs] move http to arc
+          +e.TD.cell: +b.username noxoomo
+          +e.TD.cell Yesterday, 14:50
+
+      +b.file_section.--text
+        +e.title
+          +e.filename: +b.filename.--other README.md
+        +e.content
+          h1 Плагины и конфиги комбайна
+
+          p Плагины - статически собираются в образ, любая модификация требует пересборки образа и перевыкатки сервиса. Перед перевыкаткой нужно не забыть поменять layers на новый, версию предыдущего layer можно посмотреть в сервисе. https://nanny.yandex-team.ru/ui/#/services/dashboards/catalog/combaine/
+
+          p Конфиги - деплоятся динамически через deploy-configs.py, который запускается по крону на всех комбайнах. Скрипт generator.py и deploy-configs.py деплоятся динамически вместе с конфигами. Каталог configs poll-ится на измененние svn ревизии раз в минуту, поэтому задержка деплоя конфигов в комбайн должна быть не больше минуты с момента мерджа в транк.
+
+    include ./components/footer.pug

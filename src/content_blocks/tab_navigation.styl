@@ -1,0 +1,26 @@
++b('tab-navigation')
+  border-bottom solid 1px #E5E5E5
+
+  +e('menu_link')
+    text-decoration none
+    display inline-block
+    padding 8px 0
+    margin 0 16px
+    font-size 16px
+    line-height 20px
+    text-transform uppercase
+    color #7F8285
+    font-weight 500
+    letter-spacing: .25px;
+    transform translateY(1px)
+    { mod_nav_item }
+
+    &:first-child
+      margin-left 0
+
+    &:last-child
+      margin-right 0
+
+    +m('is_active')
+      color #000
+      { mod_accent_nav_item }

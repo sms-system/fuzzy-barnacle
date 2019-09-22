@@ -1,0 +1,67 @@
+include ../base
+<!DOCTYPE html>
+html(lang="ru")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Yandex Arcanum
+    link(href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap&subset=cyrillic" rel="stylesheet")
+    link(rel="stylesheet", href="../desktop.styl")
+
+  +b.BODY.layout
+    include ./components/header
+
+    +e.content
+      include ./components/breadcrumbs
+
+      +b.title
+        +e.H1.header arcadia
+        +b.dropdown.--in_title.--is_gray.__header_suffix(tabindex="0")
+          +e.visible_item trunk
+          +e.UL.menu_items
+            +e.LI.menu_item: +e.menu_link(href="#").
+              users/rudskoy/DEVTOOLS-43865
+              Last commit 1 min ago
+            +e.LI.menu_item: +e.menu_link(href="#") My repository
+            +e.LI.menu_item: +e.menu_link(href="#") Devtools-team repository
+        +e.subheader Last commit #[+b.link(href="#") c4d248] on #[+b.link(href="#") 20 Oct 2017, 12:24] by #[+b.SPAN.username robot-srch-releaser]
+
+      +b.NAV.tab-navigation
+        +e.menu_link.--is_active(href="#") Details
+        +e.menu_link(href="#") History
+
+      +b.file_section.--code
+        +e.title
+          +e.name #[+b.SPAN.filename.--other README.md] (4 347 bytes)
+          +e.inputs
+            +b.A.button.--icon(href="#"): +svg(14, 14, "../assets/download.svg")
+        +b.PRE.code_box.__content
+          +e.line #[+e.token.--comment #!/usr/bin/env python]
+          +e.line #[+e.token.--reserved import] #[+e.token os]
+          +e.line #[+e.token.--reserved import] #[+e.token sys]
+          +e.line #[+e.token.--reserved import] #[+e.token platform]
+          +e.line #[+e.token.--reserved import] #[+e.token json]
+          +e.line
+          +e.line #[+e.token URLS] #[+e.token =] #[+e.token []#[+e.token.--string 'https://proxy.sandbox.yandex-team.ru/453818264']#[+e.token ,] #[+e.token.--string 'http://storage-int.mds.yandex.net/get-sandbox/110738/by_platform.json.453815347']#[+e.token #{"]"}]
+          +e.line #[+e.token MD5] #[+e.token =] #[+e.token.--string '7f5a85f9c28d35c3a76d8cea7af51106']
+          +e.line
+          +e.line #[+e.token RETRIES] #[+e.token =] #[+e.token 5]
+          +e.line #[+e.token HASH_PREFIX] #[+e.token =] #[+e.token 10]
+          +e.line
+          +e.line #[+e.token HOME_DIR] #[+e.token =] #[+e.token os.path.expanduser(#[+e.token.--string '~'])]
+          +e.line
+          +e.line
+          +e.line #[+e.token.--reserved def] #[+e.token.--func create_dirs]#[+e.token (path):]
+          +e.line     #[+e.token.--reserved try]#[+e.token :]
+          +e.line         #[+e.token os.makedirs(path)]
+          +e.line     #[+e.token.--reserved except] #[+e.token OSError] #[+e.token.--reserved as] #[+e.token e:]
+          +e.line         #[+e.token.--reserved import] #[+e.token errno]
+          +e.line
+          +e.line         #[+e.token.--reserved if] #[+e.token e.errno] #[+e.token !=] #[+e.token errno.EEXIST:]
+          +e.line             #[+e.token.--reserved raise]
+          +e.line
+          +e.line     #[+e.token.--reserved return] #[+e.token path]
+          +e.line
+
+    include ./components/footer.pug

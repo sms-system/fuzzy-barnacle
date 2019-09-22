@@ -1,0 +1,15 @@
++b('layout')
+  margin 0
+  min-height 100%
+  display flex
+  flex-direction column
+
+  +e('header')
+    flex-shrink 0
+
+  +e('content')
+    { mod_centered_content }
+    flex-grow 1
+
+  +e('footer')
+    flex-shrink 0

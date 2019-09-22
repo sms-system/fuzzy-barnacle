@@ -1,0 +1,17 @@
+{
+  "name": "arcanum",
+  "version": "1.0.0",
+  "author": "Serge Smirnov <sms-system@shri2018.yaconnect.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "parcel dev src/pages/index.pug",
+    "build": "parcel build src/pages/*"
+  },
+  "dependencies": {
+    "bemto.pug": "^2.1.0",
+    "parcel-bundler": "^1.12.3",
+    "pug": "^2.0.4",
+    "stylus": "^0.54.7",
+    "stylus-bem-sugar": "^1.0.4"
+  }
+}
