@@ -1,0 +1,124 @@
+include ../base
+<!DOCTYPE html>
+html(lang="ru")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Yandex Arcanum
+    link(href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap&subset=cyrillic" rel="stylesheet")
+    link(rel="stylesheet", href="../desktop.styl")
+
+  +b.BODY.layout
+    include ./components/header
+
+    +e.content
+      include ./components/breadcrumbs
+
+      +b.title
+        +e.H1.header arcadia
+        +b.dropdown.--in_title.--is_gray.__header_suffix(tabindex="0")
+          +e.visible_item trunk
+          +e.UL.menu_items
+            +e.LI.menu_item: +e.menu_link(href="#").
+              users/rudskoy/DEVTOOLS-43865
+              Last commit 1 min ago
+            +e.LI.menu_item: +e.menu_link(href="#") My repository
+            +e.LI.menu_item: +e.menu_link(href="#") Devtools-team repository
+        +e.subheader Last commit #[+b.link(href="#") c4d248] on #[+b.link(href="#") 20 Oct 2017, 12:24] by #[+b.SPAN.username robot-srch-releaser]
+
+      +b.NAV.tab-navigation
+        +e.menu_link(href="#") Details
+        +e.menu_link.--is_active(href="#") History
+
+      +b.history
+        +e.title Today
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Support new distbuild protocol
+            +e.item_desc Не очень качественно написаны некоторые функции. Предлагаю исправить это недоразумение.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username woodcutter], 4 s ago
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Force executing on MULTISLOT hosts by declaring Caches
+            +e.item_desc Не очень правильно с точки зрения ООП написаны некоторые функции. Предлагаю исправить это.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username rudskoy], 1 min ago
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Fixed run_diff_test in the realm
+            +e.item_desc Не очень правильно с точки зрения ООП написаны некоторые функции. Предлагаю исправить это.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username annaveronika] at 16:25
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+      +b.history
+        +e.title Yesterday
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Support HTTP resources
+            +e.item_desc Не очень качественно написаны некоторые функции. Предлагаю исправить это недоразумение.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username woodcutter], 4 s ago
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Fixed run_diff_test
+            +e.item_desc Не очень правильно с точки зрения ООП написаны некоторые функции. Предлагаю исправить это.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username rudskoy], 1 min ago
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Update ya-bin and test_tool
+            +e.item_desc Не очень правильно с точки зрения ООП написаны некоторые функции. Предлагаю исправить это.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username annaveronika] at 16:25
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+      +b.history
+        +e.title Jan 11
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Support HTTP resources
+            +e.item_desc Не очень качественно написаны некоторые функции. Предлагаю исправить это недоразумение.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username woodcutter], 4 s ago
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Fixed run_diff_test
+            +e.item_desc Не очень правильно с точки зрения ООП написаны некоторые функции. Предлагаю исправить это.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username rudskoy], 1 min ago
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+        +e.item
+          +e.item_decor: +e.item_img: +svg(16, 16, "../assets/shapes.svg")
+          +e.item_content
+            +e.item_title Update ya-bin and test_tool
+            +e.item_desc Не очень правильно с точки зрения ООП написаны некоторые функции. Предлагаю исправить это.
+            +e.item_info #[+b.link(href="#") s324e8] by #[+b.username annaveronika] at 16:25
+          +b.link.__item_link(href="#") s324e8
+          +b.link.__item_link(href="#"): +svg(16, 16, "../assets/code.svg")
+
+    include ./components/footer.pug
