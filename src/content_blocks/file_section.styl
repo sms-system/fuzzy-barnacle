@@ -9,12 +9,23 @@
     border-radius 5px 5px 0 0
     font-size 14px
     line-height 20px
-    color #999999
     display flex
     justify-content space-between
 
+  +e('overflow_ellipsis')
+    display inline-block
+    white-space nowrap
+    overflow hidden
+    text-overflow ellipsis
+
+  +e('title_content')
+    display flex
+    align-items center
+    overflow hidden
+
   +e('inputs')
-    margin -5px 0px
+    display flex
+    margin-left 8px
 
   +e('content')
     border 1px solid #E5E5E5

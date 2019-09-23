@@ -16,16 +16,17 @@ html(lang="ru")
       include ./components/breadcrumbs
 
       +b.title
-        +e.H1.header arcadia
-        +b.dropdown.--in_title.--is_gray.__header_suffix(tabindex="0")
-          +e.visible_item trunk
-          +e.UL.menu_items
-            +e.LI.menu_item: +e.menu_link(href="#").
-              users/rudskoy/DEVTOOLS-43865
-              Last commit 1 min ago
-            +e.LI.menu_item: +e.menu_link(href="#") My repository
-            +e.LI.menu_item: +e.menu_link(href="#") Devtools-team repository
-        +e.subheader Last commit #[+b.link(href="#") c4d248] on #[+b.link(href="#") 20 Oct 2017, 12:24] by #[+b.SPAN.username robot-srch-releaser]
+        +e.content
+          +e.H1.header arcadia
+          +b.dropdown.--in_title.--is_gray.__header_suffix(tabindex="0")
+            +e.visible_item trunk
+            +e.UL.menu_items
+              +e.LI.menu_item: +e.menu_link(href="#").
+                users/rudskoy/DEVTOOLS-43865
+                Last commit 1 min ago
+              +e.LI.menu_item: +e.menu_link(href="#") My repository
+              +e.LI.menu_item: +e.menu_link(href="#") Devtools-team repository
+          +e.subheader Last commit #[+b.link(href="#") c4d248] on #[+b.link(href="#") 20 Oct 2017, 12:24] by #[+b.SPAN.username robot-srch-releaser]
 
       +b.NAV.tab-navigation
         +e.menu_link.--is_active(href="#") Details
@@ -33,9 +34,11 @@ html(lang="ru")
 
       +b.file_section.--code
         +e.title
-          +e.name #[+b.SPAN.filename.--other README.md] (4 347 bytes)
+          +e.title_content
+            +b.SPAN.filename.--other README.md
+            +b.word.--light-gray (4 347 bytes)
           +e.inputs
-            +b.A.button.--icon(href="#"): +svg(14, 14, "../assets/download.svg")
+            +b.button.--with_border(href="#"): +svg(14, 14, "../assets/download.svg")
         +b.PRE.code_box.__content
           +e.line #[+e.token.--comment #!/usr/bin/env python]
           +e.line #[+e.token.--reserved import] #[+e.token os]

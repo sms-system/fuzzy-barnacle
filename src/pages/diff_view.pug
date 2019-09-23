@@ -1,0 +1,46 @@
+include ../base
+<!DOCTYPE html>
+html(lang="ru")
+  head
+    meta(charset="utf-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Yandex Arcanum
+    link(href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap&subset=cyrillic" rel="stylesheet")
+    link(rel="stylesheet", href="../desktop.styl")
+
+  +b.BODY.layout
+    include ./components/header
+
+    +e.content
+      include ./components/breadcrumbs
+
+      +b.title
+        +e.content
+          +e.H1.header DEVTOOLS-4599: Add option to add extra whitespace between projects
+          +e.subheader #[+b.link(href="#") s324e8] by #[+b.SPAN.username woodcutter], 4s ago
+        +e.controls #[+b.button(href="#") #[+svg(14, 14, "../assets/burger-menu.svg").button__icon] Show files at r4318347]
+
+      +b.file_section.--code
+        +e.title
+          +e.title_content
+            +b.word.--purple M
+            +svg(12, 16, "../assets/file-html-gray.svg").word
+            +e.overflow_ellipsis /trunk/arcadia/devtools/intellij/src/main/java/ru/yandex/devtools/intellij/arc/client/ArcCli.java
+          +e.inputs
+            +b.word.--green +100
+            +b.word.--red -81
+            +b.link.word(href="#"): +svg(12, 16, "../assets/go-to-file.svg")
+        +b.PRE.code_box.__content
+          +e.line 1
+          +e.line.--green 2
+          +e.line.--green 2
+          +e.line 2
+          +e.line 2
+          +e.line.--red 2
+          +e.line.--red 2
+          +e.line 2
+          +e.line 2
+
+
+    include ./components/footer.pug
