@@ -31,16 +31,49 @@ html(lang="ru")
             +b.word.--green +100
             +b.word.--red -81
             +b.link.word(href="#"): +svg(12, 16, "../assets/go-to-file.svg")
-        +b.PRE.code_box.__content
-          +e.line 1
-          +e.line.--green 2
-          +e.line.--green 2
-          +e.line 2
-          +e.line 2
-          +e.line.--red 2
-          +e.line.--red 2
-          +e.line 2
-          +e.line 2
+        +b.PRE.code_box.--java.__content
+          +e.line.--info_bar
+            +e.column
+              +b.word.--lightest-gray @@ -270, 160  +270, 161 @@
+              +b.link.--disabled #[+svg(8, 13, "../assets/arrow-down-filled.svg")] Below 20 lines
+            +e.column
+              +b.link.--black(href="#") #[+svg(8, 13, "../assets/arrow-up-filled.svg")] Above 20 lines
+          +e.line.--diff package ru.yandex.devtools.intellij.arc.client;
+          +e.line.--diff
+          +e.line.--diff_a #[+e.token.--reserved import] java.util.ArrayList;
+          +e.line.--diff_a #[+e.token.--reserved import] java.util.Collection;
+          +e.line.--diff_a #[+e.token.--reserved import] java.util.List;
+          +e.line.--diff_a
+          +e.line.--diff #[+e.token.--reserved import] com.intellij.openapi.diagnostic.Logger;
+          +e.line.--diff_a #[+e.token.--reserved import] com.intellij.openapi.project.Project;
+          +e.line.--diff #[+e.token.--reserved import] com.intellij.openapi.vcs.FilePath;
+          +e.line.--diff #[+e.token.--reserved import] com.intellij.openapi.vcs.VcsException;
+          +e.line.--diff #[+e.token.--reserved import] com.intellij.openapi.vfs.VirtualFile;
+          +e.line.--diff #[+e.token.--reserved import] com.intellij.vcsUtil.VcsUtil;
+          +e.line.--diff_a #[+e.token.--reserved import] org.jetbrains.annotations.NotNull;
+          +e.line.--diff_a
+          +e.line.--diff #[+e.token.--reserved import] ru.yandex.devtools.intellij.arc.ArcContext;
+          +e.line.--diff #[+e.token.--reserved import] ru.yandex.devtools.intellij.arc.ArcRevisionNumber;
+          +e.line.--diff #[+e.token.--reserved import] ru.yandex.devtools.intellij.arc.ArcStatus;
+          +e.line.--diff_a #[+e.token.--reserved import] ru.yandex.devtools.intellij.arc.ui.ArcResetDialog;
+          +e.line.--diff
+          +e.line.--diff_d #[+e.token.--reserved import] java.util.ArrayList;
+          +e.line.--diff_d #[+e.token.--reserved import] java.util.Collection;
+          +e.line.--diff_d #[+e.token.--reserved import] java.util.List;
+          +e.line.--diff_d
+          +e.line.--diff #[+e.token.--comment /**]
+          +e.line.--diff #[+e.token.--comment  #{"* @author Dmitry Andreev <a href="}"mailto:AndreevDm@yandex-team.ru"#{"></a>"}"]
+          +e.line.--diff #[+e.token.--comment  * @date 11/10/2018]
+          +e.line.--diff #[+e.token.--comment */]
+          +e.line.--diff  #[+e.token.--reserved public] ArcCli(String arcBinaryPath) {
+          +e.line.--diff         this.arcBinaryPath = arcBinaryPath;
+          +e.line.--diff     }
+          +e.line.--info_bar
+            +e.column
+              +b.word.--lightest-gray @@ -270, 160  +270, 161 @@
+              +b.link.--disabled #[+svg(8, 13, "../assets/arrow-down-filled.svg")] Below 20 lines
+            +e.column
+              +b.link.--black(href="#") #[+svg(8, 13, "../assets/arrow-up-filled.svg")] Above 20 lines
 
 
     include ./components/footer.pug

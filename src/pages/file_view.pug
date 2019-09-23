@@ -39,32 +39,32 @@ html(lang="ru")
             +b.word.--light-gray (4 347 bytes)
           +e.inputs
             +b.button.--with_border(href="#"): +svg(14, 14, "../assets/download.svg")
-        +b.PRE.code_box.__content
-          +e.line #[+e.token.--comment #!/usr/bin/env python]
-          +e.line #[+e.token.--reserved import] #[+e.token os]
-          +e.line #[+e.token.--reserved import] #[+e.token sys]
-          +e.line #[+e.token.--reserved import] #[+e.token platform]
-          +e.line #[+e.token.--reserved import] #[+e.token json]
-          +e.line
-          +e.line #[+e.token URLS] #[+e.token =] #[+e.token []#[+e.token.--string 'https://proxy.sandbox.yandex-team.ru/453818264']#[+e.token ,] #[+e.token.--string 'http://storage-int.mds.yandex.net/get-sandbox/110738/by_platform.json.453815347']#[+e.token #{"]"}]
-          +e.line #[+e.token MD5] #[+e.token =] #[+e.token.--string '7f5a85f9c28d35c3a76d8cea7af51106']
-          +e.line
-          +e.line #[+e.token RETRIES] #[+e.token =] #[+e.token 5]
-          +e.line #[+e.token HASH_PREFIX] #[+e.token =] #[+e.token 10]
-          +e.line
-          +e.line #[+e.token HOME_DIR] #[+e.token =] #[+e.token os.path.expanduser(#[+e.token.--string '~'])]
-          +e.line
-          +e.line
-          +e.line #[+e.token.--reserved def] #[+e.token.--func create_dirs]#[+e.token (path):]
-          +e.line     #[+e.token.--reserved try]#[+e.token :]
-          +e.line         #[+e.token os.makedirs(path)]
-          +e.line     #[+e.token.--reserved except] #[+e.token OSError] #[+e.token.--reserved as] #[+e.token e:]
-          +e.line         #[+e.token.--reserved import] #[+e.token errno]
-          +e.line
-          +e.line         #[+e.token.--reserved if] #[+e.token e.errno] #[+e.token !=] #[+e.token errno.EEXIST:]
-          +e.line             #[+e.token.--reserved raise]
-          +e.line
-          +e.line     #[+e.token.--reserved return] #[+e.token path]
-          +e.line
+        +b.PRE.code_box.--padded.__content
+          +e.line.--line_no #[+e.token.--comment #!/usr/bin/env python]
+          +e.line.--line_no #[+e.token.--reserved import] #[+e.token os]
+          +e.line.--line_no #[+e.token.--reserved import] #[+e.token sys]
+          +e.line.--line_no #[+e.token.--reserved import] #[+e.token platform]
+          +e.line.--line_no #[+e.token.--reserved import] #[+e.token json]
+          +e.line.--line_no
+          +e.line.--line_no #[+e.token URLS] #[+e.token =] #[+e.token []#[+e.token.--string 'https://proxy.sandbox.yandex-team.ru/453818264']#[+e.token ,] #[+e.token.--string 'http://storage-int.mds.yandex.net/get-sandbox/110738/by_platform.json.453815347']#[+e.token #{"]"}]
+          +e.line.--line_no #[+e.token MD5] #[+e.token =] #[+e.token.--string '7f5a85f9c28d35c3a76d8cea7af51106']
+          +e.line.--line_no
+          +e.line.--line_no #[+e.token RETRIES] #[+e.token =] #[+e.token 5]
+          +e.line.--line_no #[+e.token HASH_PREFIX] #[+e.token =] #[+e.token 10]
+          +e.line.--line_no
+          +e.line.--line_no #[+e.token HOME_DIR] #[+e.token =] #[+e.token os.path.expanduser(#[+e.token.--string '~'])]
+          +e.line.--line_no
+          +e.line.--line_no
+          +e.line.--line_no #[+e.token.--reserved def] #[+e.token.--func create_dirs]#[+e.token (path):]
+          +e.line.--line_no     #[+e.token.--reserved try]#[+e.token :]
+          +e.line.--line_no         #[+e.token os.makedirs(path)]
+          +e.line.--line_no     #[+e.token.--reserved except] #[+e.token OSError] #[+e.token.--reserved as] #[+e.token e:]
+          +e.line.--line_no         #[+e.token.--reserved import] #[+e.token errno]
+          +e.line.--line_no
+          +e.line.--line_no         #[+e.token.--reserved if] #[+e.token e.errno] #[+e.token !=] #[+e.token errno.EEXIST:]
+          +e.line.--line_no             #[+e.token.--reserved raise]
+          +e.line.--line_no
+          +e.line.--line_no     #[+e.token.--reserved return] #[+e.token path]
+          +e.line.--line_no
 
     include ./components/footer.pug

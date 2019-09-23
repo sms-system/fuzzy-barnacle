@@ -1,8 +1,19 @@
 +b('code_box')
   display block
   font-family 'PT Mono', monospace
-  counter-reset line_no
+  counter-reset line_no_1
+  counter-reset line_no_2
   margin 0
+  +m('padded')
+    padding 4px 0
+
+  +e('column')
+    box-sizing border-box
+    padding 6px 12px
+    flex-grow 1
+    display flex
+    justify-content space-between
+    flex-basis 50%
 
   +e('line')
     display block
@@ -14,23 +25,70 @@
     word-wrap break-word
     word-break break-all
     position relative
-    padding 0 16px 0 70px
 
-    &:before
-      display block
-      position absolute
-      width 40px
-      left 0
-      top 0
-      text-align right
-      counter-increment line_no
-      content counter(line_no)
+    +m('line_no')
+      counter-increment line_no_1
+      padding 0 16px 0 70px
+      &:before
+        display block
+        position absolute
+        width 40px
+        left 0
+        top 0
+        text-align right
+        content counter(line_no_1)
 
-    +m('green')
+    +m('diff')
+      counter-increment line_no_1
+      &::before
+        counter-increment line_no_2
+
+    +m('diff_a')
       background #E6FFED
+      counter-increment line_no_1
 
-    +m('red')
+    +m('diff_d')
       background #FFEEF0
+      counter-increment line_no_2
+
+    +group()
+      m('diff_a')
+      m('diff_d')
+      m('diff')
+      padding 0 16px 0 112px
+      &::after, &::before
+        color #B8BEC3
+
+    +group()
+      m('diff')
+      m('diff_a')
+      &::after
+        display block
+        position absolute
+        width 40px
+        left 40px
+        top 0
+        text-align right
+        content counter(line_no_1)
+
+    +group()
+      m('diff')
+      m('diff_d')
+      &::before
+        display block
+        position absolute
+        width 40px
+        left 0
+        top 0
+        text-align right
+        content counter(line_no_2)
+
+    +m('info_bar')
+      font-size 12px
+      line-height 28px
+      background #F1F8FF
+      white-space nowrap
+      display flex
 
   +e('token')
     color #00234B
