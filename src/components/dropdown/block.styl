@@ -1,0 +1,81 @@
+@import '../../mixins'
+
++b('Dropdown')
+  display: inline-block
+  &:focus
+    outline: 0
+
+  +e('content')
+    cursor: pointer
+    position: relative
+    display: flex
+    align-items: center
+    height: 100%
+
+    &::before
+      content: ''
+      display: block
+      width: 20px
+
+      position: absolute
+      top: 0
+      right: -(@width)
+      bottom: 0
+
+    &::after
+      content: ''
+      display: block
+      width: 12px
+      height: 12px
+      background: url('../../assets/arrow-down-outline.svg') center no-repeat
+
+      position: absolute
+      top: 50%
+      right: -16px
+      margin-top: -(@height / 2)
+
+      transition: transform ANIMATIONS.TIME
+
+  +e('menu')
+    visibility: hidden
+    opacity: 0
+    transform: translateY(-20px)
+
+    // TODO !! //
+    font-size: 14px
+    line-height: 18px
+
+    background: COLORS.BG_PRIMARY
+
+    z-index: 1
+    position: absolute
+
+    list-style: none
+
+    margin: 0
+    padding: 6px 0
+
+    box-shadow: 0 4px 16px rgba(53, 73, 93, .2)
+    transform: translateY(-20px)
+
+    transition: opacity ANIMATIONS.TIME, transform ANIMATIONS.TIME, visibility ANIMATIONS.TIME
+
+  +e('link')
+    display: block
+    color: COLORS.PRIMARY
+    padding: 8px 22px
+    text-decoration: none
+    &:hover
+      background: COLORS.BG_HOVER
+      text-decoration: none
+
+  +m('is-openned')
+
+    +e('content')
+      &::after
+        transform: rotate(-180deg)
+
+    +e('menu')
+      visibility: visible
+      opacity: 1
+      transform: translateY(3px)
