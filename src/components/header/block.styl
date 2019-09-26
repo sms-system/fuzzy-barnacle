@@ -1,0 +1,22 @@
+@import '../../mixins'
+
++b('Header')
+  border-bottom: 1px solid COLORS.SECTION_LINE
+
+  +e('content')
+    display: flex
+    align-items: center
+
+  +e('logo')
+    margin-right: 40px
+
+  +e('item')
+    height: SIZES.HEADER_HEIGHT
+
+    +m('accent')
+      { accent_item }
+
+  // Example of theming
+  \._theme_dark &
+  &._theme_dark
+    border-bottom: 1px solid COLORS_DARK.SECTION_LINE

@@ -1,0 +1,1 @@
+{"version":3,"sources":["block.styl"],"names":[],"mappings":"AAAA,UACE,oBACF,CACA,uBACE,aACF","file":"block.0e77dc41.css","sourceRoot":"../src/pages","sourcesContent":[".Username {\n  display: inline-block;\n}\n.Username:first-letter {\n  color: #ff3029;\n}\n"]}

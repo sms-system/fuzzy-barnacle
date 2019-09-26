@@ -1,0 +1,15 @@
+append head
+  link(rel="stylesheet", href="../components/tabs/block.styl")
+
+mixin Tabs
+  mixin tab
+    +e.tab&attributes(attributes)
+      block
+
+  //- Allias
+  mixin link
+    +tab&attributes(attributes)
+      block
+
+  +b.Tabs&attributes(attributes)
+    block

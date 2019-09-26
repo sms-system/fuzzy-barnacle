@@ -1,0 +1,36 @@
+include ../../mixins
+
+<!DOCTYPE html>
+html(lang="ru")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width,initial-scale=1,maximum-scale=1")
+    meta(http-equiv="X-UA-Compatible", content="ie=edge")
+    title Arcanum
+    link(rel="stylesheet", href="../themes/base/typography.styl")
+    block head
+
+    link(rel="stylesheet", href="../themes/base/layout.styl")
+
+    include ../../components/header/block
+    include ../../components/dropdown/block
+
+    include ../../components/footer/block
+
+  +b.BODY.Layout.Typography
+    block scripts
+
+    mixin wrap
+      +e.wrap&attributes(attributes)
+        block
+
+    +Header.__header
+      +Dropdown('<b>Repository</b> Arc').__item--accent
+        +link(href="#") Arc
+        +link(href="#") My repository
+        +link(href="#") Devtools-team repository
+
+    +e.content
+      block content
+
+    +Footer.__footer

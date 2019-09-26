@@ -1,0 +1,31 @@
+@import '../../mixins'
+
+html
+  height: 100%
+
++b('Layout')
+  display: flex
+  flex-direction: column
+  min-height: 100%
+  margin: 0
+
+  +e('header')
+    flex-shrink: 0
+
+  +e('footer')
+    flex-shrink: 0
+  
+  +e('content')
+    flex-grow: 1
+
+  +e('wrap')
+    box-sizing: border-box
+
+    width: 100%
+    max-width: SIZES.MAX_WIDTH
+    min-width: SIZES.MIN_WIDTH
+
+    margin-left: auto
+    margin-right: auto
+    padding-left: SIZES.PAGE_H_PADDING
+    padding-right: SIZES.PAGE_H_PADDING
