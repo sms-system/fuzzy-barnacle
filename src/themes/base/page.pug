@@ -14,6 +14,7 @@ html(lang="ru")
 
     include ../../components/header/block
     include ../../components/dropdown/block
+    include ../../components/menu/block
 
     include ../../components/footer/block
 
@@ -26,9 +27,10 @@ html(lang="ru")
 
     +Header.__header
       +Dropdown('<b>Repository</b> Arc').__item--accent
-        +link(href="#") Arc
-        +link(href="#") My repository
-        +link(href="#") Devtools-team repository
+        +Menu.__content
+          +link(href="#") Arc
+          +link(href="#") My repository
+          +link(href="#") Devtools-team repository
 
     +e.content
       block content

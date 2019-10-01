@@ -5,7 +5,7 @@
   &:focus
     outline: 0
 
-  +e('content')
+  +e('current')
     cursor: pointer
     position: relative
     display: flex
@@ -36,46 +36,25 @@
 
       transition: transform ANIMATIONS.TIME
 
-  +e('menu')
+  +e('content')
     visibility: hidden
     opacity: 0
     transform: translateY(-20px)
 
-    // TODO !! //
-    font-size: 14px
-    line-height: 18px
+    box-shadow: 0 4px 16px rgba(53, 73, 93, .2)
 
-    background: COLORS.BG_PRIMARY
+    transition: opacity ANIMATIONS.TIME, transform ANIMATIONS.TIME, visibility ANIMATIONS.TIME
 
     z-index: 1
     position: absolute
 
-    list-style: none
-
-    margin: 0
-    padding: 6px 0
-
-    box-shadow: 0 4px 16px rgba(53, 73, 93, .2)
-    transform: translateY(-20px)
-
-    transition: opacity ANIMATIONS.TIME, transform ANIMATIONS.TIME, visibility ANIMATIONS.TIME
-
-  +e('link')
-    display: block
-    color: COLORS.PRIMARY
-    padding: 8px 22px
-    text-decoration: none
-    &:hover
-      background: COLORS.BG_HOVER
-      text-decoration: none
-
   +m('is-openned')
 
-    +e('content')
+    +e('current')
       &::after
         transform: rotate(-180deg)
 
-    +e('menu')
+    +e('content')
       visibility: visible
       opacity: 1
       transform: translateY(3px)

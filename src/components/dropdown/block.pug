@@ -3,12 +3,6 @@ append head
   script(src="../components/dropdown/block.js")
 
 mixin Dropdown(currentItemText)
-  mixin link
-    +e.LI.item: +e.link&attributes(attributes)
-      block
-
   +b.Dropdown(tabindex=0)&attributes(attributes)
-    +e.content
-      +e.current_item!= currentItemText
-    +e.UL.menu
-      block
+    +e.current!= currentItemText
+    block
