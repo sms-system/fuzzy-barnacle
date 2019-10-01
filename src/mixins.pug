@@ -2,4 +2,5 @@ include ../node_modules/bemto.pug/bemto
 - set_bemto_settings({ modifier: '--' })
 
 mixin svg(width, height, src)
-  img(width=width+'px' height=height+'px' src=src)&attributes(attributes)
+  svg(width=width+'px' height=height+'px')&attributes(attributes)
+    use(href=src)

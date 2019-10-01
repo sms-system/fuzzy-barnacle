@@ -6,6 +6,7 @@ include ../components/username/block
 include ../components/tabs/block
 include ../components/table/block
 include ../components/section/block
+include ../components/icon-plus/block
 
 block content
 
@@ -30,32 +31,32 @@ block content
 
   +wrap: +Table("Name", "Last commit", "Commit message", "Committer", "Updated")
     +row.--hoverable
-      +cell api
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg') api]
       +cell #[a(href="#") d53dsv]
       +cell [vcs] move http to arc
       +cell #[+Username noxoomo]
       +cell 4 s ago
     +row.--hoverable
-      +cell ci
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg') ci]
       +cell #[a(href="#") d53dsv]
       +cell [vcs] test for empty commit message
       +cell #[+Username noxoomo]
       +cell 1 min ago
     +row.--hoverable
-      +cell contrib
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg') contrib]
       +cell #[a(href="#") d53dsv]
       +cell [vcs] change owner to g:arc
       +cell #[+Username noxoomo]
       +cell 16:25
     +row.--hoverable
-      +cell README.md
+      +cell #[+IconPlus(8, 16, '../assets/file_text.svg') README.md]
       +cell #[a(href="#") d53dsv]
       +cell [vcs] move http to arc
       +cell #[+Username noxoomo]
       +cell Yesterday, 14:50
 
   +wrap: +Section
-    +title README.md
+    +title #[+IconPlus(8, 16, '../assets/file_text.svg') README.md]
     +content
       h1 Плагины и конфиги комбайна
 
