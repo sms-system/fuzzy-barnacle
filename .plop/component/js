@@ -1,0 +1,7 @@
+document.addEventListener('DOMContentLoaded', function () {
+  var elements = document.getElementsByClassName('{{pascalCase name}}')
+  for (var i = 0; i < elements.length; i++) {
+    var element = elements[i]
+    //
+  }
+})
