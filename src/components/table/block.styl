@@ -4,22 +4,20 @@
   width: 100%
   margin-bottom: 16px
 
-  +e('head_cell')
+  +e('cell')
     text-align: left
-    color: COLORS.NO_ACCENT
-    font-weight: 500
-    padding: 15px 8px 9px
+    padding: 14px 8px
     border-bottom: 1px solid COLORS.IN_CONTENT_LINE
     &:last-child
       text-align: right
 
-  +e('cell')
-    padding: 15px 8px 13px
-    border-bottom: 1px solid COLORS.IN_CONTENT_LINE
-    &:last-child
-      text-align: right
+    +m('head')
+      color: COLORS.NO_ACCENT
+      font-weight: 500
+      padding: 12px 8px
 
   +e('row')
-    &:hover
-      +e('cell')
-        background: COLORS.TABLE_HOVER
+    +m('hoverable')
+      &:hover
+        +e('cell')
+          background: COLORS.TABLE_HOVER

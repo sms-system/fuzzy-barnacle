@@ -5,14 +5,16 @@ mixin Table(...columnNames)
   mixin row
     +e.TR.row&attributes(attributes)
       block
+
   mixin cell
     +e.TD.cell&attributes(attributes)
       block
 
   +b.TABLE.Table(cellspacing="0")&attributes(attributes)
-    +e.THEAD.head
+    thead
       +row
         each name in columnNames
-          +e.TH.head_cell= name
+          +e.TH.cell.--head= name
+
     +e.TBODY.body
       block
