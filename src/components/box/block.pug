@@ -1,0 +1,14 @@
+append head
+  link(rel="stylesheet", href="../components/box/block.styl")
+
+mixin Box
+  mixin title
+    +e.title&attributes(attributes)
+      block
+
+  mixin content
+    +e.content&attributes(attributes)
+      block
+
+  +b.Box&attributes(attributes)
+    block

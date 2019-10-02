@@ -41,6 +41,7 @@
     opacity: 0
     transform: translateY(-20px)
 
+    background: COLORS.BG_PRIMARY
     box-shadow: 0 4px 16px rgba(53, 73, 93, .2)
 
     transition: opacity ANIMATIONS.TIME, transform ANIMATIONS.TIME, visibility ANIMATIONS.TIME
@@ -58,3 +59,8 @@
       visibility: visible
       opacity: 1
       transform: translateY(3px)
+
+  +narrow()
+    +e('content')
+      left: 0
+      right: 0

@@ -2,6 +2,8 @@ extends ../themes/base/page
 
 include ../components/breadcrumbs/block
 include ../components/title/block
+include ../components/box/block
+include ../components/informer/block
 include ../components/username/block
 include ../components/tabs/block
 include ../components/table/block
@@ -19,10 +21,26 @@ block content
   +wrap: +Title
     +e.H1.header arcadia #[=' ']
     +Dropdown('trunk').__header_suffix
-      +Menu.__content
-        +link(href="#") Arc
-        +link(href="#") My repository
-        +link(href="#") Devtools-team repository
+      +Box.__content
+        +Informer.__title
+          +primary Trunk
+          +info Last commit 4 s ago
+        +content: +Menu.--wide.--scrollable
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-43865
+            +info Last commit 1 min ago
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-37948
+            +info Last commit at 16:25
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-94877
+            +info Last commit yesterday, 14:50
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-87450
+            +info Last commit on Jan 11, 12:01
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-27073
+            +info Last commit on Dec 29, 2017
     +e.subheader Last commit #[a(href="#") c4d248] on #[a(href="#") 20 Oct 2017, 12:24] by #[+Username robot-srch-releaser]
 
   +wrap: +Tabs
@@ -38,21 +56,27 @@ block content
       +cell 4 s ago
     +row.--hoverable
       +cell #[+IconPlus(11, 16, '../assets/file_folder.svg').--filename ci]
-      +cell #[a(href="#") d53dsv]
+      +cell #[a(href="#") c53dsv]
       +cell [vcs] test for empty commit message
-      +cell #[+Username noxoomo]
+      +cell #[+Username nikitxskv]
       +cell 1 min ago
     +row.--hoverable
       +cell #[+IconPlus(11, 16, '../assets/file_folder.svg').--filename contrib]
-      +cell #[a(href="#") d53dsv]
+      +cell #[a(href="#") s53dsv]
       +cell [vcs] change owner to g:arc
-      +cell #[+Username noxoomo]
+      +cell #[+Username nalpp]
       +cell 16:25
     +row.--hoverable
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg').--filename lib]
+      +cell #[a(href="#") f5jdsv]
+      +cell #[a(href="#") ARCADIA-771:] append /trunk/arcadia/
+      +cell #[+Username deshevoy]
+      +cell Jan 11, 12:01
+    +row.--hoverable
       +cell #[+IconPlus(8, 16, '../assets/file_text.svg').--filename README.md]
-      +cell #[a(href="#") d53dsv]
+      +cell #[a(href="#") h5jdsv]
       +cell [vcs] move http to arc
-      +cell #[+Username noxoomo]
+      +cell #[+Username pg]
       +cell Yesterday, 14:50
 
   +wrap: +Section

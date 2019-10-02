@@ -1,0 +1,14 @@
+append head
+  link(rel="stylesheet", href="../components/informer/block.styl")
+
+mixin Informer
+  mixin primary
+    +e.primary&attributes(attributes)
+      block
+
+  mixin info
+    +e.info&attributes(attributes)
+      block
+
+  +b.Informer&attributes(attributes)
+    block

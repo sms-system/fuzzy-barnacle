@@ -7,6 +7,7 @@ html(lang="ru")
     meta(name="viewport", content="width=device-width,initial-scale=1")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     title Arcanum
+    link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Roboto:400,500&display=swap&subset=cyrillic")
     link(rel="stylesheet", href="../themes/base/typography.styl")
     block head
 
@@ -30,8 +31,8 @@ html(lang="ru")
         block
 
     +Header.__header
-      +Dropdown('<b>Repository</b> Arc').__item--accent
-        +Menu.__content
+      +Dropdown('<span><b>Repository</b> Arc</span>').__item--accent
+        +Menu.--scrollable.__content
           +link(href="#") Arc
           +link(href="#") My repository
           +link(href="#") Devtools-team repository

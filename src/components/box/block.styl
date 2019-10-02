@@ -1,0 +1,15 @@
+@import '../../mixins'
+
++b('Box')
+
+  +e('title')
+    padding: 10px 12px
+    background: COLORS.BG_DARK
+    color: COLORS.ON_DARK
+
+  +e('content')
+    &::before
+      content: ''
+      display: block
+      margin: 4px 12px
+      border-bottom: 1px solid COLORS.IN_CONTENT_LINE

@@ -5,8 +5,6 @@
   font-size: 14px
   line-height: 18px
 
-  background: COLORS.BG_PRIMARY
-
   list-style: none
 
   margin: 0
@@ -20,3 +18,14 @@
     &:hover
       background: COLORS.BG_HOVER
       text-decoration: none
+
+  +m('wide')
+    min-width: 320px
+
+    +e('link')
+      padding: 8px 12px
+
+
+  +m('scrollable')
+    max-height: 248px
+    overflow-x: scroll
