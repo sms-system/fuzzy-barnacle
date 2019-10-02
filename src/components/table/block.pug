@@ -16,5 +16,5 @@ mixin Table(...columnNames)
         each name in columnNames
           +e.TH.cell.--head= name
 
-    +e.TBODY.body
+    tbody
       block

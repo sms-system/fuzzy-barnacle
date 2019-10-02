@@ -4,7 +4,7 @@ include ../../mixins
 html(lang="ru")
   head
     meta(charset="UTF-8")
-    meta(name="viewport", content="width=device-width,initial-scale=1,maximum-scale=1")
+    meta(name="viewport", content="width=device-width,initial-scale=1")
     meta(http-equiv="X-UA-Compatible", content="ie=edge")
     title Arcanum
     link(rel="stylesheet", href="../themes/base/typography.styl")
@@ -23,6 +23,10 @@ html(lang="ru")
 
     mixin wrap
       +e.wrap&attributes(attributes)
+        block
+
+    mixin scrollarea
+      +e.scrollarea&attributes(attributes)
         block
 
     +Header.__header

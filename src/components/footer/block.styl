@@ -6,7 +6,7 @@
   border-top: 1px solid COLORS.SECTION_LINE
   color: COLORS.SECONDARY
 
-  // TODO!!! // 
+  // TODO!!! //
   font-size: 13px
   line-height: 18px
 
@@ -16,3 +16,8 @@
   +e('info')
     flex-shrink: 0
     margin-left: 32px
+
+  +narrow()
+    display: block
+    +e('info')
+      margin: 4px 0
