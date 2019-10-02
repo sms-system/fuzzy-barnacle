@@ -21,5 +21,8 @@
     "parcel-plugin-svg-sprite": "^1.3.0",
     "plop": "^2.4.0",
     "stylint": "^2.0.0"
+  },
+  "svgSpriteOptions": {
+    "exclude": ["**/*.css.svg"]
   }
 }
