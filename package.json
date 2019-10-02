@@ -6,6 +6,7 @@
   "scripts": {
     "start": "parcel src/pages/index.pug",
     "build": "parcel build src/pages/index.pug",
+    "prepublish": "parcel build -d docs --public-url https://sms-system.github.io/fuzzy-barnacle/ src/pages/index.pug",
     "lint": "stylint src",
     "plop": "plop"
   },
