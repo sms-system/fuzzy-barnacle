@@ -6,7 +6,7 @@
   "scripts": {
     "start": "parcel src/pages/index.pug",
     "build": "parcel build src/pages/index.pug",
-    "prepublish": "parcel build -d docs --public-url /fuzzy-barnacle/ src/pages/index.pug && cp -r docs/fuzzy-barnacle/* docs",
+    "prepublish": "rm -rf docs && parcel build -d docs --public-url /fuzzy-barnacle/ src/pages/index.pug && cp -r docs/fuzzy-barnacle/* docs",
     "lint": "stylint src",
     "plop": "plop"
   },

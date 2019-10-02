@@ -7,6 +7,8 @@ include ../components/informer/block
 include ../components/username/block
 include ../components/tabs/block
 include ../components/table/block
+include ../components/table/block
+include ../components/link/block
 include ../components/section/block
 include ../components/icon-plus/block
 
@@ -41,7 +43,7 @@ block content
           +Informer(href="#").__link
             +primary users/rudskoy/DEVTOOLS-27073
             +info Last commit on Dec 29, 2017
-    +e.subheader Last commit #[a(href="#") c4d248] on #[a(href="#") 20 Oct 2017, 12:24] by #[+Username robot-srch-releaser]
+    +e.subheader Last commit #[+Link(href="#") c4d248] on #[+Link(href="#") 20 Oct 2017, 12:24] by #[+Username robot-srch-releaser]
 
   +wrap: +Tabs
     +tab(href="#").--active Files
@@ -49,32 +51,32 @@ block content
 
   +wrap: +scrollarea: +Table("Name", "Last commit", "Commit message", "Committer", "Updated")
     +row.--hoverable
-      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg').--filename api]
-      +cell #[a(href="#") d53dsv]
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text api]
+      +cell #[+Link(href="#") d53dsv]
       +cell [vcs] move http to arc
       +cell #[+Username noxoomo]
       +cell 4 s ago
     +row.--hoverable
-      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg').--filename ci]
-      +cell #[a(href="#") c53dsv]
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text ci]
+      +cell #[+Link(href="#") c53dsv]
       +cell [vcs] test for empty commit message
       +cell #[+Username nikitxskv]
       +cell 1 min ago
     +row.--hoverable
-      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg').--filename contrib]
-      +cell #[a(href="#") s53dsv]
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text contrib]
+      +cell #[+Link(href="#") s53dsv]
       +cell [vcs] change owner to g:arc
       +cell #[+Username nalpp]
       +cell 16:25
     +row.--hoverable
-      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg').--filename lib]
-      +cell #[a(href="#") f5jdsv]
-      +cell #[a(href="#") ARCADIA-771:] append /trunk/arcadia/
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text lib]
+      +cell #[+Link(href="#") f5jdsv]
+      +cell #[+Link(href="#") ARCADIA-771:] append /trunk/arcadia/
       +cell #[+Username deshevoy]
       +cell Jan 11, 12:01
     +row.--hoverable
-      +cell #[+IconPlus(8, 16, '../assets/file_text.svg').--filename README.md]
-      +cell #[a(href="#") h5jdsv]
+      +cell #[+IconPlus(8, 16, '../assets/file_text.svg'): +Link(href="#").--text README.md]
+      +cell #[+Link(href="#") h5jdsv]
       +cell [vcs] move http to arc
       +cell #[+Username pg]
       +cell Yesterday, 14:50

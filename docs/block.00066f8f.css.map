@@ -1,0 +1,1 @@
+{"version":3,"sources":["block.styl"],"names":[],"mappings":"AAAA,aACE,eAAgB,CAChB,UACF,CACA,mBACE,aACF","file":"block.00066f8f.css","sourceRoot":"../src/pages","sourcesContent":["a.Link--text {\n  font-weight: 500;\n  color: #000;\n}\na.Link--text:hover {\n  color: #1774e9;\n}\n"]}

@@ -14,6 +14,7 @@ html(lang="ru")
     link(rel="stylesheet", href="../themes/base/layout.styl")
 
     include ../../components/header/block
+    include ../../components/logo/block
     include ../../components/dropdown/block
     include ../../components/menu/block
 
@@ -31,6 +32,7 @@ html(lang="ru")
         block
 
     +Header.__header
+      +Logo.Link.__logo(href="#"): +svg(118, 20, '../assets/logo.svg')
       +Dropdown('<span><b>Repository</b> Arc</span>').__item--accent
         +Menu.--scrollable.__content
           +link(href="#") Arc
