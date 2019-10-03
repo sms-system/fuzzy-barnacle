@@ -1,4 +1,5 @@
 const OPENNED_CLASSNAME = 'Dropdown--is-openned'
+const TITLE_CLASSNAME = 'Dropdown__current'
 const BODY_MOBILE_THEME_CLASSNAME = 'Theme--mobile'
 const BODY_LOCKED_CLASSNAME = '__locked'
 
@@ -44,8 +45,18 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     })(element, timer))
     element.addEventListener('click', ((element, timer) => (event) => {
+      let clickOnTitle = false
+      let parentNode = event.target.parentNode
+      while (parentNode) {
+        if (parentNode.classList.contains(TITLE_CLASSNAME) || parentNode === element || event.target === element) {
+          clickOnTitle = true
+          break
+        }
+        parentNode = parentNode.parentNode
+      }
+
+      if (!clickOnTitle) { return }
       // If no openned state, prevent closing
-      if (event.target !== element) { return }
       if (!element.dataset.isOpenned) {
         if (timer.isOpenned) { clearTimeout(timer.isOpenned) }
         element.dataset.isOpenned = true
