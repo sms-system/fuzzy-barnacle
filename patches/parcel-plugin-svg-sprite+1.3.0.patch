@@ -1,0 +1,41 @@
+diff --git a/node_modules/parcel-plugin-svg-sprite/src/htmlPackager.js b/node_modules/parcel-plugin-svg-sprite/src/htmlPackager.js
+index 5149bd9..9a21b72 100644
+--- a/node_modules/parcel-plugin-svg-sprite/src/htmlPackager.js
++++ b/node_modules/parcel-plugin-svg-sprite/src/htmlPackager.js
+@@ -50,6 +50,9 @@ function insertSvg(svgSprite, tree) {
+   }
+ }
+ 
++function escapeRegExp(string) {
++  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
++}
+ /**
+  * @desc replace href values in `svg use` elements
+  * @param {object[]} svgAssets - list of svg assets
+@@ -65,7 +68,8 @@ function replaceSvgHref(svgAssets, tree) {
+           svgAssets.forEach(svgAsset => {
+             const { hash, path: svgPath } = svgAsset.generated.svg;
+             const svgName = path.basename(svgPath).slice(0, -4);
+-            if (href.indexOf(svgName) >= 0) {
++            const matchRegExp = new RegExp(`(\\/|^)${escapeRegExp(svgName)}\\.[^.]+\\.svg(\\?|\\#|$)`)
++            if (matchRegExp.test(href)) {
+               delete svgUseTagElement.attrs.href;
+               svgUseTagElement.attrs['xlink:href'] = `#${hash}`;
+             }
+@@ -95,14 +99,14 @@ class HtmlPackager extends HTMLPackager {
+     const svgAssets = this.getSvgAssets();
+     const svgSprite = await createSvgSprite(svgAssets);
+ 
+-    if (siblingBundles.length > 0) {
++    // if (siblingBundles.length > 0) {
+       // eslint-disable-next-line prefer-destructuring
+       html = posthtml([
+         this.insertSiblingBundles.bind(this, headBundles),
+         insertSvg.bind(this, svgSprite),
+         replaceSvgHref.bind(this, svgAssets),
+       ]).process(html, { sync: true }).html;
+-    }
++    // }
+ 
+     await this.write(html);
+   }

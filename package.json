@@ -4,15 +4,17 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "patch-package",
     "start": "parcel src/pages/index.pug",
     "build": "parcel build src/pages/index.pug",
-    "prepublish": "rm -rf docs && parcel build -d docs --public-url /fuzzy-barnacle/ src/pages/index.pug && cp -r docs/fuzzy-barnacle/* docs",
+    "build:github": "rm -rf docs && parcel build -d docs --public-url /fuzzy-barnacle/ src/pages/index.pug && cp -r docs/fuzzy-barnacle/* docs",
     "lint": "stylint src",
     "plop": "plop"
   },
   "dependencies": {
     "bemto.pug": "^2.1.0",
     "parcel-bundler": "^1.12.3",
+    "patch-package": "^6.2.0",
     "pug": "^2.0.4",
     "stylus": "^0.54.7",
     "stylus-bem-sugar": "^1.0.4"
@@ -23,6 +25,8 @@
     "stylint": "^2.0.0"
   },
   "svgSpriteOptions": {
-    "exclude": ["**/*.css.svg"]
+    "exclude": [
+      "**/*.css.svg"
+    ]
   }
 }
