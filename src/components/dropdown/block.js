@@ -43,8 +43,9 @@ document.addEventListener('DOMContentLoaded', () => {
         bodyClasses.add(BODY_LOCKED_CLASSNAME)
       }
     })(element, timer))
-    element.addEventListener('click', ((element, timer) => () => {
+    element.addEventListener('click', ((element, timer) => (event) => {
       // If no openned state, prevent closing
+      if (event.target !== element) { return }
       if (!element.dataset.isOpenned) {
         if (timer.isOpenned) { clearTimeout(timer.isOpenned) }
         element.dataset.isOpenned = true

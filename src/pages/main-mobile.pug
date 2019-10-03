@@ -6,8 +6,7 @@ include ../components/box/block
 include ../components/informer/block
 include ../components/username/block
 include ../components/tabs/block
-include ../components/table/block
-include ../components/table/block
+include ../components/list/block
 include ../components/link/block
 include ../components/section/block
 include ../components/icon-plus/block
@@ -49,39 +48,21 @@ block content
     +tab(href="#").--active Files
     +tab(href="#") Branches
 
-  +wrap: +scrollarea: +Table("Name", "Last commit", "Commit message", "Committer", "Updated")
-    +row.--hoverable
-      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text api]
-      +cell #[+Link(href="#") d53dsv]
-      +cell [vcs] move http to arc
-      +cell #[+Username noxoomo]
-      +cell 4 s ago
-    +row.--hoverable
-      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text ci]
-      +cell #[+Link(href="#") c53dsv]
-      +cell [vcs] test for empty commit message
-      +cell #[+Username nikitxskv]
-      +cell 1 min ago
-    +row.--hoverable
-      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text contrib]
-      +cell #[+Link(href="#") s53dsv]
-      +cell [vcs] change owner to g:arc
-      +cell #[+Username nalpp]
-      +cell 16:25
-    +row.--hoverable
-      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text lib]
-      +cell #[+Link(href="#") f5jdsv]
-      +cell #[+Link(href="#") ARCADIA-771:] append /trunk/arcadia/
-      +cell #[+Username deshevoy]
-      +cell Jan 11, 12:01
-    +row.--hoverable
-      +cell #[+IconPlus(8, 16, '../assets/file_text.svg'): +Link(href="#").--text README.md]
-      +cell #[+Link(href="#") h5jdsv]
-      +cell [vcs] move http to arc
-      +cell #[+Username pg]
-      +cell Yesterday, 14:50
+  +wrap: +List
+    +link: +Informer.--big
+      +primary #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text api]
+      +info #[+Link(href="#") ARCADIA-771:] append /trunk/arcadia/
+      +info #[+Link(href="#") d53dsv] by #[+Username noxoomo], 4 s ago
+    +link: +Informer.--big
+      +primary #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text ci]
+      +info #[+Link(href="#") ARCADIA-771:] append /trunk/arcadia/
+      +info #[+Link(href="#") d53dsv] by #[+Username noxoomo], 4 s ago
+    +link: +Informer.--big
+      +primary #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text contrib]
+      +info #[+Link(href="#") ARCADIA-771:] append /trunk/arcadia/
+      +info #[+Link(href="#") d53dsv] by #[+Username noxoomo], 4 s ago
 
-  +wrap: +Section
+  +wrap.--wide: +Section
     +title #[+IconPlus(8, 16, '../assets/file_text.svg') README.md]
     +content
       h1 Плагины и конфиги комбайна
