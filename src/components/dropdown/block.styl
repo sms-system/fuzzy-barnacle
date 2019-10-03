@@ -1,5 +1,8 @@
 @import '../../mixins'
 
+body.__locked
+  overflow hidden
+
 +b('Dropdown')
   display: inline-block
   &:focus
@@ -46,7 +49,7 @@
 
     transition: opacity ANIMATIONS.TIME, transform ANIMATIONS.TIME, visibility ANIMATIONS.TIME
 
-    z-index: 1
+    z-index: 2
     position: absolute
 
   +m('is-openned')
@@ -64,3 +67,26 @@
     +e('content')
       left: 0
       right: 0
+
+  +theme('mobile')
+    +e('content')
+      padding-top: 24px
+      border-radius: 10px 10px 0 0
+      transform: translateY(40px)
+      position: fixed
+      left: 0
+      right: 0
+      bottom: 0
+
+    +m('is-openned')
+      &::after
+        content: ''
+        z-index: 1
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background: rgba(0, 0, 0, .8)
+      +e('content')
+        transform: translateY(0)

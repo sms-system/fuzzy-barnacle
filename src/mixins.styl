@@ -8,6 +8,7 @@ e(element, tag=null)
 // @stylint on
 
 @import './themes/base/vars'
+@import './themes/mobile/vars'
 @import './themes/dark/vars'
 
 accent_item =
@@ -15,4 +16,9 @@ accent_item =
 
 narrow()
   @media (max-width: SIZES.MEDIUM_WIDTH)
+    {block}
+
+theme(name)
+  \.Theme--{name} &
+  &.Theme--{name}
     {block}

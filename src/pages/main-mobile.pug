@@ -1,0 +1,91 @@
+extends ../themes/mobile/page
+
+include ../components/breadcrumbs/block
+include ../components/title/block
+include ../components/box/block
+include ../components/informer/block
+include ../components/username/block
+include ../components/tabs/block
+include ../components/table/block
+include ../components/table/block
+include ../components/link/block
+include ../components/section/block
+include ../components/icon-plus/block
+
+block content
+
+  +wrap: +Breadcrumbs
+    +link(href="#") arcadia
+    +link(href="#") trank
+    +link(href="#") arcadia
+    +link.--active arcanum
+
+  +wrap: +Title
+    +e.H1.header arcadia #[=' ']
+    +Dropdown('trunk').__header_suffix
+      +Box.__content
+        +Informer.__title
+          +primary Trunk
+          +info Last commit 4 s ago
+        +content: +Menu.--wide.--scrollable
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-43865
+            +info Last commit 1 min ago
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-37948
+            +info Last commit at 16:25
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-94877
+            +info Last commit yesterday, 14:50
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-87450
+            +info Last commit on Jan 11, 12:01
+          +Informer(href="#").__link
+            +primary users/rudskoy/DEVTOOLS-27073
+            +info Last commit on Dec 29, 2017
+    +e.subheader Last commit #[+Link(href="#") c4d248] on #[+Link(href="#") 20 Oct 2017, 12:24] by #[+Username robot-srch-releaser]
+
+  +wrap: +Tabs
+    +tab(href="#").--active Files
+    +tab(href="#") Branches
+
+  +wrap: +scrollarea: +Table("Name", "Last commit", "Commit message", "Committer", "Updated")
+    +row.--hoverable
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text api]
+      +cell #[+Link(href="#") d53dsv]
+      +cell [vcs] move http to arc
+      +cell #[+Username noxoomo]
+      +cell 4 s ago
+    +row.--hoverable
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text ci]
+      +cell #[+Link(href="#") c53dsv]
+      +cell [vcs] test for empty commit message
+      +cell #[+Username nikitxskv]
+      +cell 1 min ago
+    +row.--hoverable
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text contrib]
+      +cell #[+Link(href="#") s53dsv]
+      +cell [vcs] change owner to g:arc
+      +cell #[+Username nalpp]
+      +cell 16:25
+    +row.--hoverable
+      +cell #[+IconPlus(11, 16, '../assets/file_folder.svg'): +Link(href="#").--text lib]
+      +cell #[+Link(href="#") f5jdsv]
+      +cell #[+Link(href="#") ARCADIA-771:] append /trunk/arcadia/
+      +cell #[+Username deshevoy]
+      +cell Jan 11, 12:01
+    +row.--hoverable
+      +cell #[+IconPlus(8, 16, '../assets/file_text.svg'): +Link(href="#").--text README.md]
+      +cell #[+Link(href="#") h5jdsv]
+      +cell [vcs] move http to arc
+      +cell #[+Username pg]
+      +cell Yesterday, 14:50
+
+  +wrap: +Section
+    +title #[+IconPlus(8, 16, '../assets/file_text.svg') README.md]
+    +content
+      h1 Плагины и конфиги комбайна
+
+      p Плагины - статически собираются в образ, любая модификация требует пересборки образа и перевыкатки сервиса. Перед перевыкаткой нужно не забыть поменять layers на новый, версию предыдущего layer можно посмотреть в сервисе. https://nanny.yandex-team.ru/ui/#/services/dashboards/catalog/combaine/
+
+      p Конфиги - деплоятся динамически через deploy-configs.py, который запускается по крону на всех комбайнах. Скрипт generator.py и deploy-configs.py деплоятся динамически вместе с конфигами. Каталог configs poll-ится на измененние svn ревизии раз в минуту, поэтому задержка деплоя конфигов в комбайн должна быть не больше минуты с момента мерджа в транк.
