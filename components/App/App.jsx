@@ -16,7 +16,6 @@ export default function App() {
         <a className="link">Profile</a>
       </Link>
 
-      <Route path="/about">About Us</Route>
       <Route path="/users/:name/:rest*">
         {params => <HelloWorld name={ params.name } rand={ Math.random() }/>}
       </Route>

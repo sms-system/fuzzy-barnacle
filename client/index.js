@@ -1,14 +1,16 @@
-import { rehydrateMarks } from 'react-imported-component'
 import React from 'react'
+
+import { rehydrateMarks } from 'react-imported-component'
 import { hydrate, render } from 'react-dom'
 
-import App from './App'
-import './imported'
+import App from '../components/App/App@client'
+import '../generated/imports'
 
 const element = document.getElementById('app')
-const app = <App />
 
 document.addEventListener('DOMContentLoaded', () => {
+  const state = window.__PRELOADED_STATE__
+  const app = <App state={ state } />
   if (process.env.NODE_ENV === 'production') {
     rehydrateMarks().then(() => { hydrate(app, element) })
   } else {
