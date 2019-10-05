@@ -1,6 +1,0 @@
-append head
-  link(rel="stylesheet", href="../components/{{kebabCase name}}/block.styl")
-
-mixin {{pascalCase name}}
-  +b.{{pascalCase name}}&attributes(attributes)
-    block

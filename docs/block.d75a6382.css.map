@@ -1,1 +1,0 @@
-{"version":3,"sources":["block.styl"],"names":[],"mappings":"AAAA,MACE,oBAAqB,CACrB,QAAS,CACT,SACF,CACA,kBACE,kBAAmB,CACnB,+BACF","file":"block.d75a6382.css","sourceRoot":"../src/pages","sourcesContent":[".List {\n  list-style-type: none;\n  margin: 0;\n  padding: 0;\n}\n.List .List__link {\n  padding: 12px 0 4px;\n  border-bottom: 1px solid #e5e5e5;\n}\n"]}
