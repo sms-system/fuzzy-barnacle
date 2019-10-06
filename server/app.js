@@ -6,17 +6,13 @@ import renderHtml from './utils/render-html'
 
 const CLIENT_BUNDLE = 'index.js'
 
-import App from '../components/App/App@server'
-import { stat } from 'fs'
+import App from '../components/app/app@server'
 const manifest = require('../generated/client.manifest.json')
 
 const scriptInject = `<script src="${ manifest[CLIENT_BUNDLE] }"></script>`
 
 export default (res, req) => {
-  const state = {
-    name: 'test',
-    data: null
-  }
+  const state = require('../store/initial-state.json')
   const serializedState = JSON.stringify(state)
     .replace(/</g, '\\u003c')
     .replace(/>/g, '\\u003e')

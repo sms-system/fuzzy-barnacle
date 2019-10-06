@@ -5,9 +5,9 @@ import { Provider } from 'react-redux'
 
 import createStore from '../../store'
 
-import BaseApp from './App'
+import BaseApp from './app'
 
-export default function App({ state }) {
+export default function App ({ state }) {
   return (
     <Provider store={createStore(state)}>
       <Router>

@@ -3,8 +3,8 @@ import React from 'react'
 import { rehydrateMarks } from 'react-imported-component'
 import { hydrate, render } from 'react-dom'
 
-import App from '../components/App/App@client'
-import '../generated/imports'
+import App from '../components/app/app@client'
+if (process.env.NODE_ENV === 'production') { require('../generated/imports') }
 
 const element = document.getElementById('app')
 

@@ -1,24 +1,16 @@
 import React from 'react'
-import { Link, Route } from 'wouter'
+import { Switch, Route } from 'wouter'
 
-import importedComponent from 'react-imported-component'
+import imported from 'react-imported-component'
 
-// const HelloWorld = importedComponent(() => new Promise((resolve) => {
-//   setTimeout(() => resolve(import //('./HelloWorld')), 1000)
-// }))
+const Home = imported(() => import('../pages/repo-list'))
+const NotFound = imported(() => import('../pages/404'))
 
-const HelloWorld = importedComponent(() => import('./HelloWorld'))
-
-export default function App() {
+export default function App () {
   return (
-    <div>
-      <Link href="/users/1">
-        <a className="link">Profile</a>
-      </Link>
-
-      <Route path="/users/:name/:rest*">
-        {params => <HelloWorld name={ params.name } rand={ Math.random() }/>}
-      </Route>
-    </div>
+    <Switch>
+      <Route path="/"><Home /></Route>
+      <Route path="/:rest*"><NotFound /></Route>
+    </Switch>
   )
 }

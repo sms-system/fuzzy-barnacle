@@ -1,0 +1,1 @@
+module.exports = (componentFn, className, props = {}) => componentFn({ className, ...props })

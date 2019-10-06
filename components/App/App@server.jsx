@@ -5,9 +5,9 @@ import staticLocationHook from 'wouter/static-location'
 
 import createStore from '../../store'
 
-import BaseApp from './App'
+import BaseApp from './app'
 
-export default function App({ url, state }) {
+export default function App ({ url, state }) {
   return (
     <Provider store={createStore(state)}>
       <Router hook={ staticLocationHook(url) }>
