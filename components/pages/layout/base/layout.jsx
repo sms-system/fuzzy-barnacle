@@ -1,13 +1,13 @@
 import React from 'react'
 
-import Header from './header'
+import BaseHeader from './header/header'
 
 export default function Layout ({ children }) {
   return (
-    <div>
-      <Header />
+    <>
+      <BaseHeader />
       { children }
       FOOTER
-    </div>
+    </>
   )
 }

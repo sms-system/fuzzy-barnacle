@@ -1,16 +1,14 @@
 import React from 'react'
 import { Switch, Route } from 'wouter'
 
-import imported from 'react-imported-component'
-
-const Home = imported(() => import('../pages/repo-list'))
-const NotFound = imported(() => import('../pages/404'))
+import routes from '../pages/routes'
 
 export default function App () {
   return (
     <Switch>
-      <Route path="/"><Home /></Route>
-      <Route path="/:rest*"><NotFound /></Route>
+      { Object.keys(routes).map((route) => (
+        <Route key={ route }  path={ route } component={ routes[route].component } />
+      )) }
     </Switch>
   )
 }

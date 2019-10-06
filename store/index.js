@@ -1,5 +1,5 @@
 import { createStore } from 'redux'
-import { devToolsEnhancer } from 'redux-devtools-extension'
+import { devToolsEnhancer } from 'redux-devtools-extension/logOnlyInProduction'
 
 import reducer from './reducer'
 

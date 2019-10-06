@@ -1,1 +1,0 @@
-window.__PRELOADED_STATE__ = require('../store/initial-state.json')
