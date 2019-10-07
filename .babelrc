@@ -5,7 +5,8 @@
   ],
   "plugins": [
     "react-imported-component/babel",
-    "@babel/plugin-syntax-dynamic-import"
+    "@babel/plugin-proposal-dynamic-import",
+    "@babel/plugin-transform-modules-commonjs"
   ],
   "env": {
     "server": {

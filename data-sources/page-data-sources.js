@@ -18,7 +18,10 @@ const pageDataSources = {
         path: [() => path]
       }
       case REPO_VIEW.BLOB: return {
-        // fileContent: [sources.getFileContent, actions.setFileContent]
+        // fileContent: [sources.getFileContent, actions.setFileContent],
+        repo: [() => repo],
+        branch: [() => branch],
+        path: [() => path]
       }
     }
   }
