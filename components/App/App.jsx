@@ -7,7 +7,7 @@ export default function App () {
   return (
     <Switch>
       { Object.keys(routes).map((route) => (
-        <Route key={ route }  path={ route } component={ routes[route].component } />
+        <Route key={ route }  { ...routes[route] } />
       )) }
     </Switch>
   )

@@ -1,13 +1,26 @@
 import PAGES from '../components/pages/page-names'
-import { getRepoList } from './index'
+import * as sources from './index'
+import * as actions from '../store/actions'
+import REPO_VIEW from '../components/pages/repo-page-view-types'
 
 const baseDataSources = {
-  text: async () => 'test'
+  text: [() => 'test'],
+  repoList: [sources.getRepoList]
 }
 
 const pageDataSources = {
-  [ PAGES.REPO_LIST ]: {
-    repoList: getRepoList
+  [ PAGES.REPO_PAGE ]: ({ repo, branch, path, view_type }) => {
+    switch (view_type) {
+      case REPO_VIEW.TREE: return {
+        fileList: [sources.getFileList, actions.setFileList],
+        repo: [() => repo],
+        branch: [() => branch],
+        path: [() => path]
+      }
+      case REPO_VIEW.BLOB: return {
+        // fileContent: [sources.getFileContent, actions.setFileContent]
+      }
+    }
   }
 }
 

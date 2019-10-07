@@ -4,10 +4,14 @@ import element from '../../helpers/element.jsx'
 
 const cnMenu = cn('Menu')
 
-export default function Menu ({ className }) {
+export default function Menu ({ className, children }) {
   return (
-    <div className={ cnMenu(null, [className]) }>
-      MENU
-    </div>
+    <ul className={ cnMenu(null, [className]) }>
+      { children.map(Child =>
+        <li className={ cnMenu('Item') } key={ Child().key }>
+          {element(Child, cnMenu('Link'))}
+        </li>
+      ) }
+    </ul>
   )
 }
