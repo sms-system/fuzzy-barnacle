@@ -35,8 +35,10 @@ export default function FileList ({ repo, branch, path }) {
 
   return (
     <Layout>
-      <Link href={ location + '/foo' }>TEST</Link>
-      <div className="aa">FileList, { JSON.stringify(fileList) }</div>
+      <div className="Layout-Wrap">
+        <Link href={ location + '/foo' }>TEST</Link>
+        <div className="aa">FileList, { JSON.stringify(fileList) }</div>
+      </div>
     </Layout>
   )
 }

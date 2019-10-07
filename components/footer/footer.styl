@@ -1,0 +1,23 @@
+@import '../style'
+
++b('Footer')
+  display: flex
+  padding: SIZES.FOOTER_PADDING
+  border-top: 1px solid COLORS.SECTION_LINE
+  color: COLORS.SECONDARY
+
+  // TODO!!! //
+  font-size: 13px
+  line-height: 18px
+
+  +e('Main')
+    flex-grow: 1
+
+  +e('Info')
+    flex-shrink: 0
+    margin-left: 32px
+
+  +narrow()
+    display: block
+    +e('Info')
+      margin: 4px 0

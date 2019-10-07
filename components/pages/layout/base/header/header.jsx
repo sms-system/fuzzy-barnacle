@@ -6,10 +6,10 @@ import Header from '../../../../header/header'
 import Logo from '../../../../logo/logo'
 import RepoSelect from './repo-select'
 
-export default function BaseHeader () {
+export default function BaseHeader (props) {
   const repo = useSelector(({ repo }) => repo)
   return (
-    <Header className="Layout-Header" elLogo={ Logo } accent={ true } wrapperClassName="Layout-Wrap">
+    <Header elLogo={ Logo } accent={ true } {...props}>
       { repo && RepoSelect }
     </Header>
   )
