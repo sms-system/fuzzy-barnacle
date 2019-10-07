@@ -11,6 +11,7 @@ const baseDataSources = {
 const pageDataSources = {
   [ PAGES.REPO_PAGE ]: ({ repo, branch, path, view_type }) => {
     switch (view_type) {
+      case undefined:
       case REPO_VIEW.TREE: return {
         fileList: [sources.getFileList, actions.setFileList],
         repo: [() => repo],
