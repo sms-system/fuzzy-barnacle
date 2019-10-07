@@ -8,7 +8,7 @@ import './breadcrumbs.styl'
 const cnBreadcrumbs = cn('Breadcrumbs')
 
 export default function Breadcrumbs ({ className, items = [] }) {
-  return items.length ? (
+  return !!items.length && (
     <ul className={ cnBreadcrumbs(null, [className]) }>
       { items.map(({ title, url }, i) =>
         <li className={ cnBreadcrumbs('Item') } key={ i }>
@@ -18,5 +18,5 @@ export default function Breadcrumbs ({ className, items = [] }) {
         </li>
       ) }
     </ul>
-  ) : <></>
+  )
 }
