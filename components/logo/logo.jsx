@@ -1,8 +1,8 @@
 import React from 'react'
 import { cn } from '@bem-react/classname'
-
-import Svg from '../Svg'
+import Svg from '../svg'
 import logo from './logo.svg'
+
 const cnLogo = cn('Logo')
 
 export default function Logo ({ className }) {

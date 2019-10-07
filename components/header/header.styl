@@ -1,0 +1,17 @@
+@import '../style'
+
++b('Header')
+  border-bottom: 1px solid COLORS.SECTION_LINE
+
+  +e('Content')
+    display: flex
+    align-items: center
+
+  +e('Logo')
+    margin-right: 40px
+
+  +e('Item')
+    height: SIZES.HEADER_HEIGHT
+
+    +m('accent')
+      { accent_item }

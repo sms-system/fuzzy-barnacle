@@ -1,6 +1,8 @@
 import React from 'react'
 import path from 'path'
 
+import config from '../config.json'
+
 import { renderToString } from 'react-dom/server'
 import { printDrainHydrateMarks } from 'react-imported-component'
 import {discoverProjectStyles, getUsedStyles} from 'used-styles'
@@ -39,7 +41,7 @@ export default async (res, req) => {
 
   const html = renderHtml(
     content,
-    usedStyles.map(style => `<link  rel="stylesheet" href="/assets/${style}">`).join(''),
+    usedStyles.map(style => `<link  rel="stylesheet" href="${config.assetsUrl}/${style}">`).join(''),
     serializedStateScript + printDrainHydrateMarks() + scriptInject
   )
   res.end(html)

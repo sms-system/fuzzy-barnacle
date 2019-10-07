@@ -9,7 +9,7 @@ import RepoSelect from './repo-select'
 export default function BaseHeader () {
   const repo = useSelector(({ repo }) => repo)
   return (
-    <Header elLogo={ Logo }>
+    <Header className="Layout-Header" elLogo={ Logo } accent={ true } wrapperClassName="Layout-Wrap">
       { repo && RepoSelect }
     </Header>
   )

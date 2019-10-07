@@ -1,5 +1,7 @@
 const path = require('path')
 
+import config from '../config.json'
+
 const { App } = require('uWebSockets.js')
 const useFolderServe = require('./utils/folder-serve-handler')
 import appHandler from './app'
@@ -11,7 +13,7 @@ const server = new App()
 useFolderServe(server)
 
 server
-  .folder('/assets', ASSETS_PATH)
+  .folder(config.assetsUrl, ASSETS_PATH)
   .any('/*', appHandler)
 
   .listen(PORT, () => {

@@ -1,2 +1,92 @@
-.Dropdown
-  background #ccc
+@import '../style'
+
+body.__locked
+  overflow hidden
+
++b('Dropdown')
+  display: flex
+  &:focus
+    outline: 0
+
+  +e('Current')
+    cursor: pointer
+    position: relative
+    display: flex
+    align-items: center
+    height: 100%
+
+    &::before
+      content: ''
+      display: block
+      width: 20px
+
+      position: absolute
+      top: 0
+      right: -(@width)
+      bottom: 0
+
+    &::after
+      content: ''
+      display: block
+      width: 12px
+      height: 12px
+      // background: url('../../assets/arrow-down-outline.css.svg') center no-repeat
+
+      position: absolute
+      top: 50%
+      right: -16px
+      margin-top: -(@height / 2)
+
+      transition: transform ANIMATIONS.TIME
+
+  +e('Content')
+    visibility: hidden
+    opacity: 0
+    transform: translateY(-20px)
+
+    background: COLORS.BG_PRIMARY
+    box-shadow: 0 4px 16px rgba(53, 73, 93, .2)
+
+    transition: opacity ANIMATIONS.TIME, transform ANIMATIONS.TIME, visibility ANIMATIONS.TIME
+
+    z-index: 2
+    position: absolute
+
+  +m('is-openned')
+
+    +e('Current')
+      &::after
+        transform: rotate(-180deg)
+
+    +e('Content')
+      visibility: visible
+      opacity: 1
+      transform: translateY(3px)
+
+  +narrow()
+    +e('Content')
+      left: 0
+      right: 0
+
+  +theme('mobile')
+    +e('Content')
+      padding-top: 24px
+      border-radius: 10px 10px 0 0
+      transform: translateY(40px)
+      position: fixed
+      left: 0
+      right: 0
+      bottom: 0
+
+    +m('is-openned')
+      &::after
+        content: ''
+        z-index: 1
+        position: fixed
+        top: 0
+        left: 0
+        right: 0
+        bottom: 0
+        background: rgba(0, 0, 0, .8)
+      +e('Content')
+        transform: translateY(0)
