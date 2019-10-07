@@ -3,9 +3,9 @@ import imported from 'react-imported-component'
 
 import REPO_VIEW from './repo-page-view-types'
 
-const Home = imported(() => import('./repo-list'))
-const FileList = imported(() => import('./file-list'))
-const NotFound = imported(() => import('./404'))
+const Home = imported(() => import('./repo-list/repo-list'))
+const FileList = imported(() => import('./file-list/file-list'))
+const NotFound = imported(() => import('./404/404'))
 
 import PAGES from './page-names'
 

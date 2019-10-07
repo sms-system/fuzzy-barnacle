@@ -48,6 +48,7 @@
     "stylus": "^0.54.7",
     "stylus-bem-sugar": "^1.0.4",
     "uWebSockets.js": "uNetworking/uWebSockets.js#v15.11.0",
+    "used-styles": "^2.1.0",
     "wouter": "^2.2.1"
   },
   "devDependencies": {

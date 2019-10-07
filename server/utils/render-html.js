@@ -1,4 +1,6 @@
-module.exports = (content, hydrateMarksScript) => {
+module.exports = (content, headInject, scriptInject) => {
   return '<!DOCTYPE html>' +
-    content.replace(/<\/body>\s*<\/html>$/, hydrateMarksScript + '</body></html>')
+    content
+      .replace(/<\/head>/, headInject + '</head>')
+      .replace(/<\/body>\s*<\/html>$/, scriptInject + '</body></html>')
 }

@@ -1,12 +1,14 @@
 import React from 'react'
 import { cn } from '@bem-react/classname'
 
+import Svg from '../Svg'
+import logo from './logo.svg'
 const cnLogo = cn('Logo')
 
 export default function Logo ({ className }) {
   return (
     <div className={ cnLogo(null, [className]) }>
-      LOGO
+      <Svg icon={ logo } />
     </div>
   )
 }

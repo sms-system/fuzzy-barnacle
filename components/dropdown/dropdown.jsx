@@ -2,6 +2,8 @@ import React from 'react'
 import { cn } from '@bem-react/classname'
 import element from '../element.jsx'
 
+import './dropdown.styl'
+
 const cnDropdown = cn('Dropdown')
 
 export default function Dropdown ({ className, currentItemText, children }) {

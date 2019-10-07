@@ -2,12 +2,14 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Link, useLocation } from 'wouter'
 
-import matched from '../../helpers/object-strings-matched'
-import cancellablePromise from '../../helpers/cancelable-promise'
-import getFileList from '../../data-sources/file-list'
-import { setFileList, setRepoPos } from '../../store/actions'
+import './file-list.styl'
 
-import Layout from './layout/base/layout'
+import matched from '../../../helpers/object-strings-matched'
+import cancellablePromise from '../../../helpers/cancelable-promise'
+import getFileList from '../../../data-sources/file-list'
+import { setFileList, setRepoPos } from '../../../store/actions'
+
+import Layout from '../layout/base/layout'
 
 export default function FileList ({ repo, branch, path }) {
   const dispatch = useDispatch()
@@ -34,7 +36,7 @@ export default function FileList ({ repo, branch, path }) {
   return (
     <Layout>
       <Link href={ location + '/foo' }>TEST</Link>
-      <div>FileList, { JSON.stringify(fileList) }</div>
+      <div className="aa">FileList, { JSON.stringify(fileList) }</div>
     </Layout>
   )
 }
