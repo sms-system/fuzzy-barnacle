@@ -9,7 +9,13 @@ export default function Layout ({ children }) {
     <>
       <BaseHeader className="Layout-Header" wrapperClassName="Layout-Wrap" />
       <div className="Layout-Content">
-        <div className="Layout-Wrap"><Breadcrumbs /></div>
+        <div className="Layout-Wrap"><Breadcrumbs items={[
+          {url: '#', title: 'Test1'},
+          {url: '#', title: 'Test2'},
+          {url: '#', title: 'Test3'},
+          {url: '#', title: 'Test4'},
+          {url: '#', title: 'Test5'}
+        ]} /></div>
         { children }
       </div>
       <Footer className="Layout-Footer" elInfo={[
