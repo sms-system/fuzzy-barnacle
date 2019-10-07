@@ -21,7 +21,7 @@ export default async (url) => {
   let sources = baseDataSources, params = {}
   const [ pageName, routeParams ] = getPage(url)
   if (routeParams) { params = routeParams }
-  if (pageName) { sources = { ...sources, ...pageDataSources[pageName](params) } }
+  if (pageName && pageDataSources[pageName]) { sources = { ...sources, ...pageDataSources[pageName](params) } }
 
   const data = await Promise.all( Object.values(sources).map(([source]) => source(params)) )
   Object.keys(sources).forEach((key, i) => {
