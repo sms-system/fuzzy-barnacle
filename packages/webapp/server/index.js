@@ -17,5 +17,5 @@ server
   .any('/*', appHandler)
 
   .listen(PORT, () => {
-    console.log(`App started on ${PORT}`)
+    console.log(`Web server started on ${PORT}`)
   })

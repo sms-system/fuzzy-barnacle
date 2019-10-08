@@ -2,7 +2,7 @@
   "private": true,
   "name": "shri-2019-arcanum-app",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "proxy.js",
   "license": "MIT",
   "workspaces": [
     "packages/*"
@@ -12,11 +12,12 @@
     "build": "yarn workspace webapp build",
     "start:webapp": "yarn workspace webapp start",
     "start:api": "yarn workspace api start",
-    "start": "sh -c 'concurrently -k -c cyan.bold -n API,WEBAPP \"yarn start:api $([[ $0 != sh ]] && echo $0) $@\" \"yarn start:webapp $([[ $0 != sh ]] && echo $0) $@\"'"
+    "start": "sh -c 'concurrently -k -c cyan.bold -n API,WEBAPP,PROXY \"yarn start:api $([[ $0 != sh ]] && echo $0) $@\" \"yarn start:webapp $([[ $0 != sh ]] && echo $0) $@\" \"node proxy.js $([[ $0 != sh ]] && echo $0) $@\"'"
   },
   "dependencies": {
     "concurrently": "^5.0.0",
     "convict": "^5.1.0",
-    "js-yaml": "^3.13.1"
+    "js-yaml": "^3.13.1",
+    "redbird": "^0.9.1"
   }
 }

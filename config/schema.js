@@ -12,20 +12,46 @@ module.exports = {
     env: 'REPOS_DIR',
     arg: 'repos-dir'
   },
+  proxy: {
+    port: {
+      doc: 'The port to bind proxy service',
+      format: 'port',
+      default: 8000,
+      env: 'PORT'
+    },
+    hostname: {
+      doc: 'The hostname or ip for proxy service',
+      format: String,
+      default: 'localhost',
+      env: 'HOSTNAME'
+    }
+  },
   api: {
     port: {
       doc: 'The port to bind api',
       format: 'port',
       default: 8001,
       env: 'API_PORT'
+    },
+    hostname: {
+      doc: 'The hostname or ip for api',
+      format: String,
+      default: 'localhost',
+      env: 'API_HOSTNAME'
     }
   },
   webapp: {
     port: {
       doc: 'The port to bind webapp',
       format: 'port',
-      default: 8000,
+      default: 8002,
       env: 'WEBAPP_PORT'
+    },
+    hostname: {
+      doc: 'The hostname or ip for webapp',
+      format: String,
+      default: 'localhost',
+      env: 'WEBAPP_HOSTNAME'
     }
   },
   git: {

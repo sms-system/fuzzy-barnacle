@@ -118,4 +118,4 @@ app.get('/api/repos/:repositoryId/charsCount/:commitHash', (req, res) => {
   )
 })
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
+app.listen(PORT, () => console.log(`Web server started on port ${PORT}`))
