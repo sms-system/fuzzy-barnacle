@@ -1,0 +1,20 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Git client api",
+  "author": "Serge Smirnov <sms-system@shri2018.yaconnect.com>",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=10.11.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mime-types": "^2.1.24",
+    "p-queue": "^6.1.1"
+  }
+}

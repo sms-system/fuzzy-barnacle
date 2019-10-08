@@ -1,0 +1,28 @@
+@import '../style'
+
++b('Tabs')
+  border-bottom: 1px solid COLORS.IN_CONTENT_LINE
+
+  +e('Tab')
+    display: inline-block
+    letter-spacing: .25px
+    text-transform: uppercase
+    font-weight: WEIGHTS.BOLD
+    padding: 8px 0
+    margin: 0 16px
+    color: COLORS.SECONDARY
+
+    // TODO !! //
+    font-size: 16px
+    line-height: 20px
+
+    &:first-child
+      margin-left: 0
+    &:last-child
+      margin-right: 0
+    &:hover
+      text-decoration: none
+
+    +m('active')
+      color: COLORS.PRIMARY
+      { accent_item }

@@ -1,59 +1,22 @@
 {
-  "name": "git-client",
+  "private": true,
+  "name": "shri-2019-arcanum-app",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "cross-env NODE_ENV=development BABEL_ENV=client parcel client/index.html",
-    "build": "npm run generate-imported-component && rimraf dist && npm run build:client && npm run build:server",
-    "build:client": "rimraf generated/client.manifest.json && cross-env NODE_ENV=production BABEL_ENV=client parcel build --no-source-maps -d dist/client --public-url /assets client/index.js && move-cli --mkdirp dist/client/parcel-manifest.json generated/client.manifest.json && move-cli dist/client/report.html dist/client-report.html",
-    "build:server": "cross-env NODE_ENV=production BABEL_ENV=server parcel build --no-source-maps -d dist/server --target node server/index.js && rimraf dist/server/parcel-manifest.json && move-cli dist/server/report.html dist/server-report.html && npm run fix-server-bundle",
-    "generate-imported-component": "imported-components components generated/imports.js",
-    "fix-server-bundle": "replace 'new Function\\((?:\"\"|'\"''\"')\\s*,\\s*(\\w+)\\)\\(\\)'  'new Function(\"\",`var __dirname=\"${__dirname}\";${$1}`)()' dist/server/index.js",
-    "extract-matcher": "copy node_modules/wouter/matcher.js generated",
-    "postinstall": "npm run extract-matcher",
-    "start": "node dist/server",
-    "lint": "stylint src",
-    "plop": "plop"
-  },
-  "engines": {
-    "node": ">=10"
+    "postinstall": "yarn workspace webapp extract-matcher",
+    "build": "yarn workspace webapp build",
+    "start:webapp": "yarn workspace webapp start",
+    "start:api": "yarn workspace api start",
+    "start": "sh -c 'concurrently -k -c cyan.bold -n API,WEBAPP \"yarn start:api $([[ $0 != sh ]] && echo $0) $@\" \"yarn start:webapp $([[ $0 != sh ]] && echo $0) $@\"'"
   },
   "dependencies": {
-    "@babel/core": "^7.6.2",
-    "@babel/plugin-proposal-dynamic-import": "^7.5.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.6.0",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.6.2",
-    "@babel/preset-react": "^7.0.0",
-    "@bem-react/classname": "^1.5.6",
-    "@sifrr/server": "^0.0.6",
-    "copy": "^0.3.2",
-    "cross-env": "^6.0.3",
-    "move-cli": "^1.2.1",
-    "node-fetch": "^2.6.0",
-    "parcel-bundler": "^1.12.3",
-    "parcel-plugin-bundle-manifest": "^0.2.0",
-    "parcel-plugin-inlinesvg": "^0.1.1",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "react-hot-loader": "^4.12.14",
-    "react-imported-component": "^6.2.0",
-    "react-redux": "^7.1.1",
-    "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
-    "replace": "^1.1.1",
-    "rimraf": "^3.0.0",
-    "stylus": "^0.54.7",
-    "stylus-bem-sugar": "^1.0.4",
-    "uWebSockets.js": "uNetworking/uWebSockets.js#v15.11.0",
-    "used-styles": "^2.1.0",
-    "wouter": "^2.2.1"
-  },
-  "devDependencies": {
-    "parcel-plugin-bundle-visualiser": "^1.2.0",
-    "plop": "^2.4.0",
-    "stylint": "^2.0.0"
+    "concurrently": "^5.0.0",
+    "convict": "^5.1.0",
+    "js-yaml": "^3.13.1"
   }
 }

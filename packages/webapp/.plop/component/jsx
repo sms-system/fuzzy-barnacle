@@ -1,0 +1,12 @@
+import React from 'react'
+import { cn } from '@bem-react/classname'
+
+const cn{{ name }} = cn('{{ name }}')
+
+export default function {{ name }} ({ className }) {
+  return (
+    <div className={ cn{{ name }}(null, [className]) }>
+
+    </div>
+  )
+}
