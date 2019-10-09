@@ -34,9 +34,9 @@ module.exports = {
       env: 'API_PORT'
     },
     hostname: {
-      doc: 'The hostname or ip for api',
+      doc: 'The hostname or ip for api (with schema)',
       format: String,
-      default: 'localhost',
+      default: 'http://localhost',
       env: 'API_HOSTNAME'
     }
   },
@@ -48,9 +48,9 @@ module.exports = {
       env: 'WEBAPP_PORT'
     },
     hostname: {
-      doc: 'The hostname or ip for webapp',
+      doc: 'The hostname or ip for webapp (with schema)',
       format: String,
-      default: 'localhost',
+      default: 'http://localhost',
       env: 'WEBAPP_HOSTNAME'
     }
   },
