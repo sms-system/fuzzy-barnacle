@@ -3,13 +3,13 @@ import * as sources from './index'
 import * as actions from '../store/actions'
 import REPO_VIEW from '../components/pages/repo-page-view-types'
 
-const baseDataSources = {
+const baseDataSources =  {
   text: [() => 'test'],
   repoList: [sources.getRepoList]
 }
 
 const pageDataSources = {
-  [ PAGES.REPO_PAGE ]: ({ repo, branch, path, view_type }) => {
+  [ PAGES.REPO_PAGE ]: ({ repo, branch, path, view_type  }) => {
     switch (view_type) {
       case undefined:
       case REPO_VIEW.TREE: return {

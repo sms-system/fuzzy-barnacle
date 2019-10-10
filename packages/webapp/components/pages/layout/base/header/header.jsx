@@ -10,7 +10,7 @@ export default function BaseHeader (props) {
   const repo = useSelector(({ repo }) => repo)
   return (
     <Header elLogo={ Logo } accent={ true } {...props}>
-      { repo && RepoSelect }
+      { RepoSelect }
     </Header>
   )
 }

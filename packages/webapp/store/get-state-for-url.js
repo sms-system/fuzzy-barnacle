@@ -10,20 +10,28 @@ function getPage (url) {
     const route = routes[page]
     const [match, params] = matcher(route.path, url)
     if (match === true) {
-      return [ page, params ]
+      const parsedParams = {}
+      Object.keys(params).forEach(key => parsedParams[key] = params[key] && decodeURI(params[key]))
+      return [ page, params, parsedParams ]
     }
   }
-  return [ null, null ]
+  return [ null, null, null ]
 }
 
 export default async (url) => {
   const state = {}
   let sources = baseDataSources, params = {}
-  const [ pageName, routeParams ] = getPage(url)
+  const [ pageName, routeParams, parsedParams ] = getPage(url)
   if (routeParams) { params = routeParams }
-  if (pageName && pageDataSources[pageName]) { sources = { ...sources, ...pageDataSources[pageName](params) } }
+  if (pageName && pageDataSources[pageName]) { sources = { ...sources, ...pageDataSources[pageName](parsedParams) } }
 
-  const data = await Promise.all( Object.values(sources).map(([source]) => source(params)) )
+  const data = await Promise.all( Object.values(sources).map(([source, _]) => {
+    let getter = source(params)
+    if (getter && getter.catch) { getter = getter.catch(e => {
+      return { ERROR: e.ERROR || true }
+    }) }
+    return getter
+  }) )
   Object.keys(sources).forEach((key, i) => {
     state[key] = data[i]
   })

@@ -1,12 +1,12 @@
 import fetch from 'node-fetch'
 
-export default async ({ path }) => {
-  // const data = await fetch('https://api.github.com/users/github')
-  // const json = await data.json()
-  return [
-    '/file/1',
-    Math.random() + (path || '</>'),
-    '/file/2',
-    '/file/3'
-  ]
+import { API_URL } from '../config'
+
+export default async ({ repo, branch, path }) => {
+  let url = `${API_URL}/repos/${repo}`
+  if (branch) { url += `/tree/${branch}/${path || ''}` }
+  const data = await fetch(url)
+  const res = await data.json()
+  if (res.errorCode) throw { ERROR: res.errorCode }
+  return res
 }

@@ -38,6 +38,12 @@ module.exports = {
       format: String,
       default: 'http://localhost',
       env: 'API_HOSTNAME'
+    },
+    url: {
+      doc: 'API endpoint full url',
+      format: String,
+      default: 'http://localhost:8000/api',
+      env: 'API_URL'
     }
   },
   webapp: {
