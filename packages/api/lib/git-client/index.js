@@ -251,6 +251,7 @@ class GitRepo {
       }
     })
     child.on('close', (code) => {
+      console.log(errorMsg)
       if (prevChunk.length) {
         const processedPart = isJSONStr ?
           ',' + gitTreeRecordFormat(prevChunk) :

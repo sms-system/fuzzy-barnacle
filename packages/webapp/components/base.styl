@@ -1,0 +1,70 @@
+@import './style'
+
++b('Typography')
+  font-family: 'YS Text', 'Yandex Sans Text', 'Roboto', 'Open Sans', sans-serif
+  word-wrap: break-word
+  color: COLORS.PRIMARY
+
+  font-size: 14px
+  line-height: 18px
+
+  a
+    color: COLORS.LINK
+    text-decoration: none
+    &:hover
+      text-decoration: underline
+
+  b
+    font-weight: WEIGHTS.BOLD
+
+  h1
+    margin: 8px 0 10px
+    font-weight: WEIGHTS.BOLD
+    font-size: 20px
+    line-height: 24px
+
+html, body
+  height: 100%
+
+body
+  margin: 0
+
++b('Layout')
+  display: flex
+  flex-direction: column
+  min-height: 100%
+  margin: 0
+
+  +e('Header')
+    flex-shrink: 0
+
+  +e('Footer')
+    flex-shrink: 0
+
+  +e('Content')
+    flex-grow: 1
+
+  +e('Wrap')
+    box-sizing: border-box
+
+    width: 100%
+    max-width: SIZES.MAX_WIDTH
+    min-width: SIZES.MIN_WIDTH
+
+    margin-left: auto
+    margin-right: auto
+    padding-left: SIZES.PAGE_H_PADDING
+    padding-right: SIZES.PAGE_H_PADDING
+
+  +e('Scrollarea')
+    overflow-y: scroll
+
+  +theme('mobile')
+    +e('Wrap')
+      max-width: SIZES_MOBILE.MAX_WIDTH
+      padding-left: SIZES_MOBILE.PAGE_H_PADDING
+      padding-right: SIZES_MOBILE.PAGE_H_PADDING
+
+      +m('wide')
+        padding-left: 0
+        padding-right: 0
