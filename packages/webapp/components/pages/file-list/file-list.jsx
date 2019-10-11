@@ -34,8 +34,8 @@ function getIcon (type, filename) {
   }
 }
 
-function getLink (path, repoPos) {
-  let location = '/repos/' + repoPos.repo + '/tree/' + (repoPos.branch||'master') + (repoPos.path? '/' + repoPos.path : '/').replace(/\/$/, '')
+function getLink (path, repoPos, type) {
+  let location = '/repos/' + repoPos.repo + '/' + type + '/' + (repoPos.branch||'master') + (repoPos.path? '/' + repoPos.path : '/').replace(/\/$/, '')
   return path === '..' ?
     location.replace(/\/[^\/]+$/, '') :
     location + '/' + path
@@ -61,7 +61,7 @@ const page = (repoPos, fileList, isLoading, location) => (
         fileList.map(row =>
           [
             <IconPlus elIcon={ <Svg className="IconPlus-Icon" icon={ getIcon(row.type, row.name) } />}>
-              <Link href={ getLink(row.name, repoPos) } mods={ { text: true } }>{row.name}</Link>
+              <Link href={ getLink(row.name, repoPos, row.type) } mods={ { text: true } }>{row.name}</Link>
             </IconPlus>,
             row.size
           ]
