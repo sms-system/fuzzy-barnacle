@@ -48,9 +48,7 @@ const page = (repoPos, fileList, isLoading, location) => (
     ...(repoPos.path ? repoPos.path.split('/').map((slug, i) => (
       {url: `/repos/${repoPos.repo}/tree/${repoPos.branch}/${repoPos.path.split('/').slice(0, i+1).join('/')}`, title: slug}
     )) : [])
-  ] } >{
-    console.log(repoPos)
-  }
+  ] } >
     <div className="Layout-Wrap">
       <Tabs items={[
         { title: 'Files', url: '#', isActive: true }
@@ -129,8 +127,6 @@ export default function FileList ({ repo, branch = 'master', path }) {
         return <NotFound/>
     }
   }
-
-  console.log(fileList)
 
   return '500'
 }
