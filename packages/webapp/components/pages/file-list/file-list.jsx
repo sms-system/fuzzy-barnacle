@@ -35,30 +35,34 @@ function getIcon (type, filename) {
   }
 }
 
-function getLink (path, location, branch) {
-  location = location.replace(/\/$/, '')
-  const locationLevel = location.split('/').length - 1
-  if (locationLevel === 1) { location += '/tree' }
-  if (locationLevel < 3 && location.endsWith('/tree') ) { location += `/${branch}` }
-  return location === '..' ?
+function getLink (path, repoPos) {
+  let location = '/' + repoPos.repo + '/tree/' + (repoPos.branch||'master') + (repoPos.path? '/' + repoPos.path : '/').replace(/\/$/, '')
+  return path === '..' ?
     location.replace(/\/[^\/]+$/, '') :
     location + '/' + path
 }
 
-const page = ({ repo, branch = 'master' }, fileList, isLoading, location) => (
-  <Layout title={ repo } subtitle={ props => <BranchSelect {...props} /> }>
+const page = (repoPos, fileList, isLoading, location) => (
+  <Layout title={ repoPos.repo } breadcrumbs={ [
+    {url: `/${repoPos.repo}`, title: repoPos.repo},
+    {url: `/${repoPos.repo}/tree/${repoPos.branch}`, title: repoPos.branch},
+    ...(repoPos.path ? repoPos.path.split('/').map((slug, i) => (
+      {url: `/${repoPos.repo}/tree/${repoPos.branch}/${repoPos.path.split('/').slice(0, i+1).join('/')}`, title: slug}
+    )) : [])
+  ] } >{
+    console.log(repoPos)
+  }
     <div className="Layout-Wrap">
       <Tabs items={[
-        { title: 'Files', url: '#', isActive: true },
-        { title: 'Branches', url: location + '/foo', isActive: false }
+        { title: 'Files', url: '#', isActive: true }
       ]} />
     </div>
-    <div className="Layout-Wrap"><div className="Layout-Scrollarea">
+    <div className={ `Layout-Wrap ${isLoading && '_loading'}` }><div className="Layout-Scrollarea">
       <Table headers={[ 'Name', 'Size (bytes)' ]} rows={
         fileList.map(row =>
           [
             <IconPlus elIcon={ <Svg className="IconPlus-Icon" icon={ getIcon(row.type, row.name) } />}>
-              <Link href={ getLink(row.name, location, branch) } mods={ { text: true } }>{row.name}</Link>
+              <Link href={ getLink(row.name, repoPos) } mods={ { text: true } }>{row.name}</Link>
             </IconPlus>,
             row.size
           ]
@@ -68,7 +72,7 @@ const page = ({ repo, branch = 'master' }, fileList, isLoading, location) => (
   </Layout>
 )
 
-export default function FileList ({ repo, branch, path }) {
+export default function FileList ({ repo, branch = 'master', path }) {
   const dispatch = useDispatch()
   const fileList = useSelector(({ fileList }) => fileList)
 

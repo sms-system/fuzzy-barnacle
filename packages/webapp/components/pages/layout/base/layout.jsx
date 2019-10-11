@@ -5,19 +5,13 @@ import Breadcrumbs from '../../../breadcrumbs/breadcrumbs'
 import Title from '../../../title/title'
 import Footer from '../../../footer/footer'
 
-export default function Layout ({ title, titleSuffix, subtitle, children }) {
+export default function Layout ({ title, titleSuffix, subtitle, children, breadcrumbs }) {
   return (
     <>
       <BaseHeader className="Layout-Header" wrapperClassName="Layout-Wrap" />
       <div className="Layout-Content">
         <div className="Layout-Wrap">
-          <Breadcrumbs items={[
-            {url: '#', title: 'Test1'},
-            {url: '#', title: 'Test2'},
-            {url: '#', title: 'Test3'},
-            {url: '#', title: 'Test4'},
-            {url: '#', title: 'Test5'}
-          ]} />
+          <Breadcrumbs items={ breadcrumbs } />
         </div>
         { title && <div className="Layout-Wrap">
           <Title elSuffix={ titleSuffix } elSubheader={ subtitle }>{ title }&nbsp;</Title>
