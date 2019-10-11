@@ -10,7 +10,8 @@ const NotFound = imported(() => import('./404/404'))
 import PAGES from './page-names'
 
 export default {
-  [PAGES.REPO_LIST]: { path: '/', component: Home },
+  [PAGES.HOME]: { path: '/', component: Home },
+  [PAGES.REPO_LIST]: { path: '/repos', component: Home },
   [PAGES.REPO_PAGE]: { path: '/repos/:repo/:view_type?/:branch?/:path*', component: ({ params }) => {
     switch (params.view_type) {
       case undefined:

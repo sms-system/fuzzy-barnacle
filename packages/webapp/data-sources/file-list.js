@@ -6,10 +6,10 @@ export default async ({ repo, branch, path }) => {
   let url = `${API_URL}/repos/${repo}`
   if (branch) { url += `/tree/${branch}/${path || ''}` }
   const data = await fetch(url)
-  const res = (await data.json())
-    .sort((a, b) => { return (a.type === b.type ?
-      a.name.localeCompare(b.name) : (a.type === 'blob' ? 1 : -1)
-    ) })
+  const res = await data.json()
   if (res.errorCode) throw { ERROR: res.errorCode }
-  return res
+  return Array.isArray(res)?
+    res.sort((a, b) => { return (a.type === b.type ?
+      a.name.localeCompare(b.name) : (a.type === 'blob' ? 1 : -1)
+    ) }) : res
 }

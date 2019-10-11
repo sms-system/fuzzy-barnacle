@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { shallowEqual, useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'wouter'
+import imported from 'react-imported-component'
 
 import cancellablePromise from '../../../helpers/cancelable-promise'
 import getFileList from '../../../data-sources/file-list'
@@ -12,7 +13,7 @@ import Layout from '../layout/base/layout'
 import Tabs from '../../tabs/tabs'
 import Table from '../../table/table'
 import IconPlus from '../../icon-plus/icon-plus'
-import BranchSelect from '../layout/base/branch-select'
+const NotFound = imported(() => import('../404/404'))
 
 import folderIcon from '../../../assets/file_folder.svg'
 import htmlIcon from '../../../assets/file_html.svg'
@@ -125,9 +126,11 @@ export default function FileList ({ repo, branch = 'master', path }) {
       case 'REPO_DOES_NOT_EXISTS':
       case 'IS_NOT_A_DIRECTORY':
       case 'BRANCH_OR_COMMIT_OR_PATH_DOES_NOT_EXISTS':
-        return '404'
+        return <NotFound/>
     }
   }
+
+  console.log(fileList)
 
   return '500'
 }

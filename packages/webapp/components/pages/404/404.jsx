@@ -1,12 +1,12 @@
 import React from 'react'
-import { Link } from 'wouter'
+import Layout from '../layout/base/layout'
 
 export default function NotFound () {
   return (
-    <div>
-      <Link href="/monorepo/tree">/monorepo/tree!</Link>
-      <Link href="/">Main!</Link>
-      NotFound
-    </div>
+    <Layout>
+      <div className="Layout-Wrap">
+        <h1>4[]4 Page Not Found :(</h1>
+      </div>
+    </Layout>
   )
 }
