@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { shallowEqual, useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'wouter'
 
-import './file-list.styl'
-
 import cancellablePromise from '../../../helpers/cancelable-promise'
 import getFileList from '../../../data-sources/file-list'
 import { setFileList, setRepoPos } from '../../../store/actions'
@@ -111,7 +109,7 @@ export default function FileList ({ repo, branch = 'master', path }) {
     return () => { fileListPromise.cancel() }
   }, [ repo, branch, path ])
 
-  if (!fileList) {
+  if (!fileList || !currentRepoPos.repo) {
     return page({ repo, branch }, [], true, location)
   }
 
