@@ -17,7 +17,7 @@ export default function RepoList () {
       <div className="Layout-Wrap"><div className="Layout-Scrollarea">
         <Table headers={[ 'Repository folder', '' ]} rows={
           repoList.map(repo =>
-            [ <Link href={ `/${repo}` }>{repo}</Link>, '' ]
+            [ <Link href={ `/repos/${repo}` }>{repo}</Link>, '' ]
           )
         } />
       </div></div>

@@ -34,7 +34,7 @@ function getIcon (type, filename) {
 }
 
 function getLink (path, repoPos) {
-  let location = '/' + repoPos.repo + '/tree/' + (repoPos.branch||'master') + (repoPos.path? '/' + repoPos.path : '/').replace(/\/$/, '')
+  let location = '/repos/' + repoPos.repo + '/tree/' + (repoPos.branch||'master') + (repoPos.path? '/' + repoPos.path : '/').replace(/\/$/, '')
   return path === '..' ?
     location.replace(/\/[^\/]+$/, '') :
     location + '/' + path
@@ -42,10 +42,10 @@ function getLink (path, repoPos) {
 
 const page = (repoPos, fileList, isLoading, location) => (
   <Layout title={ repoPos.repo } breadcrumbs={ [
-    {url: `/${repoPos.repo}`, title: repoPos.repo},
-    {url: `/${repoPos.repo}/tree/${repoPos.branch}`, title: repoPos.branch},
+    {url: `/repos/${repoPos.repo}`, title: repoPos.repo},
+    {url: `/repos/${repoPos.repo}/tree/${repoPos.branch}`, title: repoPos.branch},
     ...(repoPos.path ? repoPos.path.split('/').map((slug, i) => (
-      {url: `/${repoPos.repo}/tree/${repoPos.branch}/${repoPos.path.split('/').slice(0, i+1).join('/')}`, title: slug}
+      {url: `/repos/${repoPos.repo}/tree/${repoPos.branch}/${repoPos.path.split('/').slice(0, i+1).join('/')}`, title: slug}
     )) : [])
   ] } >{
     console.log(repoPos)
