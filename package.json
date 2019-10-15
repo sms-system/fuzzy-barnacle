@@ -12,7 +12,8 @@
     "build": "yarn workspace webapp build",
     "start:webapp": "yarn workspace webapp start",
     "start:api": "yarn workspace api start",
-    "start": "sh -c 'concurrently -k -c cyan.bold -n API,WEBAPP,PROXY \"yarn start:api $([[ $0 != sh ]] && echo $0) $@\" \"yarn start:webapp $([[ $0 != sh ]] && echo $0) $@\" \"node proxy.js $([[ $0 != sh ]] && echo $0) $@\"'"
+    "start": "sh -c 'concurrently -k -c cyan.bold -n API,WEBAPP,PROXY \"yarn start:api $([[ $0 != sh ]] && echo $0) $@\" \"yarn start:webapp $([[ $0 != sh ]] && echo $0) $@\" \"node proxy.js $([[ $0 != sh ]] && echo $0) $@\"'",
+    "test:hermione": "cd hermione && docker-compose up --abort-on-container-exit"
   },
   "dependencies": {
     "concurrently": "^5.0.0",

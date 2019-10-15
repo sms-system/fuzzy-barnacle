@@ -10,5 +10,10 @@ const proxy = require('redbird')({ port: PROXY.port })
 
 proxy.register(`${PROXY.hostname}`,     `${WEBAPP.hostname}:${WEBAPP.port}`)
 proxy.register(`${PROXY.hostname}/api`, `${API.hostname}:${API.port}/api`)
+console.log(`Host "${PROXY.hostname}" registered`)
+
+// For docker
+proxy.register(`app.internal`,     `${WEBAPP.hostname}:${WEBAPP.port}`)
+proxy.register(`app.internal/api`, `${API.hostname}:${API.port}/api`)
 
 console.log(`Web server started on ${PROXY.port}`)

@@ -1,1 +1,8 @@
 reposDir: './fixtures/repos'
+
+proxy:
+  hostname: localhost
+  port: 8005
+
+api:
+  url: 'http://app.internal:8005/api'

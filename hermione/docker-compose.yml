@@ -1,0 +1,60 @@
+version: '3'
+services:
+
+  chrome:
+    image: selenium/standalone-chrome:3.141.59-vanadium
+    volumes:
+      - /dev/shm:/dev/shm
+    logging:
+      driver: none
+
+  firefox:
+    image: selenium/standalone-firefox:3.141.59-vanadium
+    volumes:
+      - /dev/shm:/dev/shm
+    logging:
+      driver: none
+
+  app.internal:
+    image: node:latest
+    volumes:
+      - app_node_modules:/app/node_modules/
+      - ../fixtures:/app/fixtures:ro
+      - ../config:/app/config:ro
+      - ../packages:/app/packages
+      - ../package.json:/app/package.json:ro
+      - ../proxy.js:/app/proxy.js:ro
+      - ../yarn.lock:/app/yarn.lock:ro
+    working_dir: /app
+    command:
+    - /bin/bash
+    - -c
+    - |
+      yarn
+      NODE_ENV=test yarn build
+      NODE_ENV=test yarn start
+    logging:
+      driver: none
+
+  hermione:
+    build: .
+    volumes:
+      - ./:/home/node/app/
+    ports:
+      - 8000:8000
+    depends_on:
+      - app.internal
+      - chrome
+      - firefox
+    command:
+    - /bin/bash
+    - -c
+    - |
+      yarn
+      sh ./wait-for.sh app.internal:8005
+      sh ./wait-for.sh chrome:4444
+      sh ./wait-for.sh firefox:4444
+      hermione #gui --hostname 0.0.0.0
+
+volumes:
+  app_node_modules:

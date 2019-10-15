@@ -17,13 +17,13 @@ module.exports = {
       doc: 'The port to bind proxy service',
       format: 'port',
       default: 8000,
-      env: 'PORT'
+      env: 'APP_PORT'
     },
     hostname: {
       doc: 'The hostname or ip for proxy service',
       format: String,
       default: 'localhost',
-      env: 'HOSTNAME'
+      env: 'APP_HOSTNAME'
     }
   },
   api: {
