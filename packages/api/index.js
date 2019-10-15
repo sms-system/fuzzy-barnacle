@@ -2,7 +2,7 @@ const config = require('./config')
 const express = require('express')
 const mime = require('mime-types')
 const path = require('path')
-const { GitReposDir, GitRepo } = require('./lib/git-client')
+const { GitReposDir, GitRepo } = require('./lib')
 
 const PORT = config.get('api').port
 let REPOS_DIR = config.get('reposDir') || process.argv[2]
