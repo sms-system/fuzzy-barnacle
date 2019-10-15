@@ -1,4 +1,4 @@
-const { GitRepo } = require('./git-client')
+const GitRepo = require('./git-repo')
 const { default: PQueue } = require('p-queue')
 
 const numCPUs = require('os').cpus().length

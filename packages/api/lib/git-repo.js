@@ -152,7 +152,6 @@ module.exports = class GitRepo {
     const globalSymbols = {}
     let workersCount = 0, isEnded = false
     this.getTree(commitHash, null, { isRecursive: true, isJSONStr: false }, (tree) => {
-      console.log(tree, tree.filter)
       const fileList = tree.filter(entry => entry.type === 'blob')
       const child = fork('./lib/symbol-counter.js')
       workersCount++
