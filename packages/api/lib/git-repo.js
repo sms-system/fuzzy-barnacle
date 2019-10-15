@@ -107,7 +107,8 @@ module.exports = class GitRepo {
       const lines = (prevChunk + data.toString()).split('\n')
       prevChunk = lines.pop()
       if (lines.length) {
-        if (!isFirstChunk) { streamHandler(','); isFirstChunk = false }
+        if (!isFirstChunk && isJSONStr) { streamHandler(',') }
+        isFirstChunk = false
         const processedPart = isJSONStr ?
           lines.map(line => gitTreeRecordFormat(line)).join(',') :
           lines.map(line => JSON.parse(gitTreeRecordFormat(line)))
@@ -115,7 +116,6 @@ module.exports = class GitRepo {
       }
     })
     child.on('close', (code) => {
-      console.log(errorMsg)
       if (prevChunk.length) {
         const processedPart = isJSONStr ?
           ',' + gitTreeRecordFormat(prevChunk) :
@@ -152,6 +152,7 @@ module.exports = class GitRepo {
     const globalSymbols = {}
     let workersCount = 0, isEnded = false
     this.getTree(commitHash, null, { isRecursive: true, isJSONStr: false }, (tree) => {
+      console.log(tree, tree.filter)
       const fileList = tree.filter(entry => entry.type === 'blob')
       const child = fork('./lib/symbol-counter.js')
       workersCount++
