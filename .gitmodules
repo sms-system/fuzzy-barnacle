@@ -1,6 +1,0 @@
-[submodule "fixtures/repos/refactored-waddle"]
-	path = fixtures/repos/refactored-waddle
-	url = https://github.com/sms-system/refactored-waddle.git
-[submodule "fixtures/repos/xo"]
-	path = fixtures/repos/xo
-	url = https://github.com/xojs/xo.git
