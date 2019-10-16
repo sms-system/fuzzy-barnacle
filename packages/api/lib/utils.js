@@ -15,7 +15,9 @@ function normalizeDirPath (name) {
 
 function sanitizeRepositoryId (name) {
   const normalizedName = normalizeDirPath(name)
-  return !normalizedName || normalizedName.startsWith('../') ? null : normalizedName
+  return !normalizedName ||
+         normalizedName.startsWith('../') ||
+         normalizedName.slice(0, -1).indexOf(path.sep) !== -1? null : normalizedName
 }
 
 async function rmrf (dirPath) {

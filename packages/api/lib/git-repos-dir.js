@@ -10,7 +10,7 @@ const ERRORS = require('./error-codes')
 const GIT_BINARY = gitConfig.binary
 const GIT_CLONE_TIMEOUT = gitConfig.cloneTimeout
 
-const {
+let {
   isGitRepo,
   normalizeDirPath,
   rmrf,
