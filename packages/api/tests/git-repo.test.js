@@ -2,8 +2,8 @@ const rewire = require('rewire')
 const ERROR_CODES = require('../lib/error-codes')
 const config = require('../config')
 
-const REPOS_DIR = '../../fixtures/repos'
 const GIT_BINARY = config.get('git').binary
+const REPOS_DIR = '../../fixtures/repos'
 const NOT_GIT_DIR = '../../fixtures/not_git'
 const NON_EXISTS_REPOS_DIR = '../../fixtures/non_exists_repos'
 
@@ -42,6 +42,14 @@ function GitRepoGetter (cwd, argsString, stdout = [], stderr = [], code = 0) {
 describe('Git Repo class', () => {
 
   describe('constructor', () => {
+
+    test('creates instance of GitRepo class for git repo', () => {
+      const GitRepo = GitRepoGetter()
+      const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
+
+      expect(repo).toBeInstanceOf(GitRepo)
+    })
+
     test('throw error for nonexistent directory or repo', () => {
       const GitRepo = GitRepoGetter()
       const repoNotGit = _ => new GitRepo(NOT_GIT_DIR, 'foo')
@@ -62,15 +70,10 @@ describe('Git Repo class', () => {
       expect(repoNonExistsDir).toBeInstanceOf(GitRepo)
     })
 
-    test('creates instance of GitRepo class for git repo', () => {
-      const GitRepo = GitRepoGetter()
-      const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
-
-      expect(repo).toBeInstanceOf(GitRepo)
-    })
   })
 
   describe('getCommits', () => {
+
     test('basic scenario', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
@@ -99,6 +102,7 @@ describe('Git Repo class', () => {
         expect(stderr).toBe('')
       })
     })
+
     test('on very fragmented spawn stream', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
@@ -174,106 +178,23 @@ describe('Git Repo class', () => {
         expect(prohibited).not.toHaveBeenCalled()
       }, prohibited)
     })
+
   })
 
   describe('getCommitDiff', () => {
+
     test('basic scenario', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
         `show -m ${FAKE_HASH} --`,
-        [`commit b48f1a70be84937897e1013ed8f3abbffa6a53db
-Author: Serge Smirnov <sms-system@shri2018.yaconnect.com>
-Date:   Sun Sep 15 13:36:27 2019 +0300
-
-    Added offset pagination
-
-diff --git a/index.js b/index.js
-index f46629a..bc59143 100644
---- a/index.js
-+++ b/index.js
-@@ -49,9 +49,12 @@ app.get('/api/repos', async (req, res) => {
-   res.json(await req.reposDir.list())
- })
- 
-+// Send page positiion with \`page\` query
-+// Example: /api/repos/cool-timer/commits/master?page=3
- app.get('/api/repos/:repositoryId/commits/:commitHash', (req, res) => {
-   const { commitHash } = req.params
--  req.repo.getCommits(commitHash,
-+  const { page } = req.query
-+  req.repo.getCommits(commitHash, page,
-     (data) => res.write(data),
-     errHandler(res, 500),
-     () => res.end()
-@@ -67,22 +70,17 @@ app.get('/api/repos/:repositoryId/commits/:commitHash/diff', (req, res) => {
-   )
- })
- 
--app.get('/api/repos/:repositoryId', (req, res) => {
--  req.repo.getTree(undefined, undefined, false,
--    (data) => res.write(data),
--    errHandler(res, 500),
--    () => res.end()
--  )
--})
--
--app.get('/api/repos/:repositoryId/tree/:commitHash/:path(*)', (req, res) => {
-+function getTreeHandler (req, res) {
-   const { commitHash, path } = req.params
-   req.repo.getTree(commitHash, path, false,
-     (data) => res.write(data),
-     errHandler(res, 500),
-     () => res.end()
-   )
--})
-+}
-+
-+app.get('/api/repos/:repositoryId', getTreeHandler)
-+app.get('/api/repos/:repositoryId/tree/:commitHash/:path(*)', getTreeHandler)
- 
- app.get('/api/repos/:repositoryId/blob/:commitHash/:pathToFile(*)', blobMiddleware, (req, res) => {
-   const { commitHash, pathToFile } = req.params
-diff --git a/lib/git-client/index.js b/lib/git-client/index.js
-index 13e7d35..690a3d2 100644
---- a/lib/git-client/index.js
-+++ b/lib/git-client/index.js
-@@ -7,6 +7,8 @@ const ERRORS = require('./error-codes')
- const GIT_DATA_FOLDER = '.git/'
- const GIT_BINARY = 'git'
- const GIT_CLONE_TIMEOUT = 60000
-+const USE_COMMITS_LOG_PAGING = true
-+const COMMITS_PER_PAGE = 20
- 
- function isGitRepo (repoPath) {
-   return fs.existsSync(path.join(repoPath, GIT_DATA_FOLDER))
-@@ -161,7 +163,7 @@ class GitRepo {
-     if (!isGitRepo(this.path)) throw ERRORS.REPO_DOES_NOT_EXISTS
-   }
- 
--  getCommits (commitHash, streamHandler = () => {}, errHandler = () => {}, closeHandler = () => {}) {
-+  getCommits (commitHash, pageNum = 0, streamHandler = () => {}, errHandler = () => {}, closeHandler = () => {}) {
-     if (isLooksLikeArg(commitHash)) return errHandler(ERRORS.HACKING_ATTEMPT)
- 
-     const QUOTE_DELIMETER = getDelimeterKey('QUOTE')
-@@ -175,7 +177,9 @@ class GitRepo {
-       author: '%aN <%ae>'
-     }, QUOTE_DELIMETER, END_OF_LINE_DELIMETER)
- 
--    const child = spawn(GIT_BINARY, ['log' , \`--format=\${fmtTpl}\`, commitHash, '--'], {
-+    const fromPos = Number.parseInt(pageNum - 1) * COMMITS_PER_PAGE
-+    const paginator = USE_COMMITS_LOG_PAGING ? ['--skip', fromPos, '-n', COMMITS_PER_PAGE] : []
-+    const child = spawn(GIT_BINARY, ['log' , ...paginator,\`--format=\${fmtTpl}\`, commitHash, '--'], {
-       cwd: this.path, stdio: ['ignore', 'pipe', 'pipe']
-     })
-     const chunkProcessor = getChunksJSONNormalizer(QUOTE_DELIMETER, END_OF_LINE_DELIMETER)
-`])
+        ['FOO', 'BAR', '"\n\''])
 
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
 
       let stdout = '', stderr = ''
       repo.getCommitDiff(FAKE_HASH, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
         expect(code).toBe(0)
-        expect(stdout).toBe(`{"diffContent":"commit b48f1a70be84937897e1013ed8f3abbffa6a53db\\nAuthor: Serge Smirnov <sms-system@shri2018.yaconnect.com>\\nDate:   Sun Sep 15 13:36:27 2019 +0300\\n\\n    Added offset pagination\\n\\ndiff --git a/index.js b/index.js\\nindex f46629a..bc59143 100644\\n--- a/index.js\\n+++ b/index.js\\n@@ -49,9 +49,12 @@ app.get('/api/repos', async (req, res) => {\\n   res.json(await req.reposDir.list())\\n })\\n \\n+// Send page positiion with \`page\` query\\n+// Example: /api/repos/cool-timer/commits/master?page=3\\n app.get('/api/repos/:repositoryId/commits/:commitHash', (req, res) => {\\n   const { commitHash } = req.params\\n-  req.repo.getCommits(commitHash,\\n+  const { page } = req.query\\n+  req.repo.getCommits(commitHash, page,\\n     (data) => res.write(data),\\n     errHandler(res, 500),\\n     () => res.end()\\n@@ -67,22 +70,17 @@ app.get('/api/repos/:repositoryId/commits/:commitHash/diff', (req, res) => {\\n   )\\n })\\n \\n-app.get('/api/repos/:repositoryId', (req, res) => {\\n-  req.repo.getTree(undefined, undefined, false,\\n-    (data) => res.write(data),\\n-    errHandler(res, 500),\\n-    () => res.end()\\n-  )\\n-})\\n-\\n-app.get('/api/repos/:repositoryId/tree/:commitHash/:path(*)', (req, res) => {\\n+function getTreeHandler (req, res) {\\n   const { commitHash, path } = req.params\\n   req.repo.getTree(commitHash, path, false,\\n     (data) => res.write(data),\\n     errHandler(res, 500),\\n     () => res.end()\\n   )\\n-})\\n+}\\n+\\n+app.get('/api/repos/:repositoryId', getTreeHandler)\\n+app.get('/api/repos/:repositoryId/tree/:commitHash/:path(*)', getTreeHandler)\\n \\n app.get('/api/repos/:repositoryId/blob/:commitHash/:pathToFile(*)', blobMiddleware, (req, res) => {\\n   const { commitHash, pathToFile } = req.params\\ndiff --git a/lib/git-client/index.js b/lib/git-client/index.js\\nindex 13e7d35..690a3d2 100644\\n--- a/lib/git-client/index.js\\n+++ b/lib/git-client/index.js\\n@@ -7,6 +7,8 @@ const ERRORS = require('./error-codes')\\n const GIT_DATA_FOLDER = '.git/'\\n const GIT_BINARY = 'git'\\n const GIT_CLONE_TIMEOUT = 60000\\n+const USE_COMMITS_LOG_PAGING = true\\n+const COMMITS_PER_PAGE = 20\\n \\n function isGitRepo (repoPath) {\\n   return fs.existsSync(path.join(repoPath, GIT_DATA_FOLDER))\\n@@ -161,7 +163,7 @@ class GitRepo {\\n     if (!isGitRepo(this.path)) throw ERRORS.REPO_DOES_NOT_EXISTS\\n   }\\n \\n-  getCommits (commitHash, streamHandler = () => {}, errHandler = () => {}, closeHandler = () => {}) {\\n+  getCommits (commitHash, pageNum = 0, streamHandler = () => {}, errHandler = () => {}, closeHandler = () => {}) {\\n     if (isLooksLikeArg(commitHash)) return errHandler(ERRORS.HACKING_ATTEMPT)\\n \\n     const QUOTE_DELIMETER = getDelimeterKey('QUOTE')\\n@@ -175,7 +177,9 @@ class GitRepo {\\n       author: '%aN <%ae>'\\n     }, QUOTE_DELIMETER, END_OF_LINE_DELIMETER)\\n \\n-    const child = spawn(GIT_BINARY, ['log' , \`--format=\${fmtTpl}\`, commitHash, '--'], {\\n+    const fromPos = Number.parseInt(pageNum - 1) * COMMITS_PER_PAGE\\n+    const paginator = USE_COMMITS_LOG_PAGING ? ['--skip', fromPos, '-n', COMMITS_PER_PAGE] : []\\n+    const child = spawn(GIT_BINARY, ['log' , ...paginator,\`--format=\${fmtTpl}\`, commitHash, '--'], {\\n       cwd: this.path, stdio: ['ignore', 'pipe', 'pipe']\\n     })\\n     const chunkProcessor = getChunksJSONNormalizer(QUOTE_DELIMETER, END_OF_LINE_DELIMETER)\\n"}`)
+        expect(stdout).toBe(`{"diffContent":"FOOBAR\\\"\\n'"}`)
         expect(stderr).toBe('')
       })
     })
@@ -308,13 +229,15 @@ index 13e7d35..690a3d2 100644
         expect(prohibited).not.toHaveBeenCalled()
       }, prohibited)
     })
+
   })
 
   describe('getTree', () => {
+
     test('show content for root', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'ls-tree -l -- master',
+        `ls-tree -l -- ${FAKE_HASH}`,
         [
           '100644 blob 91a196c94559e760a527f944b2d973908e593abb     130	.editorconfig\n',
           '100644 blob b512c09d476623ff4bf8d0d63c29b784925dbdf8      12	.gitignore\n',
@@ -328,7 +251,7 @@ index 13e7d35..690a3d2 100644
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
 
       let stdout = '', stderr = ''
-      repo.getTree('master', undefined, {}, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
+      repo.getTree(FAKE_HASH, undefined, {}, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
         expect(code).toBe(0)
         expect(stdout).toBe('[{"name": ".editorconfig", "type": "blob", "size": "130", "objHash": "91a196c94559e760a527f944b2d973908e593abb", "mode": "100644"},{"name": ".gitignore", "type": "blob", "size": "12", "objHash": "b512c09d476623ff4bf8d0d63c29b784925dbdf8", "mode": "100644"},{"name": "README.md", "type": "blob", "size": "88", "objHash": "1b0d8e5c0a12fe3c967198d540fd50233a761ce9", "mode": "100644"},{"name": "index.js", "type": "blob", "size": "3149", "objHash": "3a76b27876c207c3a11e66e50326763af7617581", "mode": "100644"},{"name": "lib", "type": "tree", "size": "-", "objHash": "65e9481353ae1257eff5b1e4b2bd4b707bf905e9", "mode": "040000"},{"name": "package.json", "type": "blob", "size": "357", "objHash": "7c5cb3266f4338a1aa1a82a36eca3032e81504c0", "mode": "100644"},{"name": "yarn.lock", "type": "blob", "size": "15709", "objHash": "8fc51459a65bfb5b218b94ad3d6147e01e0ec5aa", "mode": "100644"}]')
         expect(stderr).toBe('')
@@ -338,7 +261,7 @@ index 13e7d35..690a3d2 100644
     test('on fragmented spawn stream', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'ls-tree -l -- master',
+        `ls-tree -l -- ${FAKE_HASH}`,
         [
           '100644 blob 91a196c94559e760a527f94',
           '4b2d973908e593abb     130	.editorconfig\n100644 blob b512c09d476623',
@@ -353,7 +276,7 @@ index 13e7d35..690a3d2 100644
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
 
       let stdout = '', stderr = ''
-      repo.getTree('master', undefined, {}, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
+      repo.getTree(FAKE_HASH, undefined, {}, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
         expect(code).toBe(0)
         expect(stdout).toBe('[{"name": ".editorconfig", "type": "blob", "size": "130", "objHash": "91a196c94559e760a527f944b2d973908e593abb", "mode": "100644"},{"name": ".gitignore", "type": "blob", "size": "12", "objHash": "b512c09d476623ff4bf8d0d63c29b784925dbdf8", "mode": "100644"},{"name": "README.md", "type": "blob", "size": "88", "objHash": "1b0d8e5c0a12fe3c967198d540fd50233a761ce9", "mode": "100644"},{"name": "index.js", "type": "blob", "size": "3149", "objHash": "3a76b27876c207c3a11e66e50326763af7617581", "mode": "100644"},{"name": "lib", "type": "tree", "size": "-", "objHash": "65e9481353ae1257eff5b1e4b2bd4b707bf905e9", "mode": "040000"},{"name": "package.json", "type": "blob", "size": "357", "objHash": "7c5cb3266f4338a1aa1a82a36eca3032e81504c0", "mode": "100644"},{"name": "yarn.lock", "type": "blob", "size": "15709", "objHash": "8fc51459a65bfb5b218b94ad3d6147e01e0ec5aa", "mode": "100644"}]')
         expect(stderr).toBe('')
@@ -363,7 +286,7 @@ index 13e7d35..690a3d2 100644
     test('show content for subtree', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'ls-tree -l -- master:lib',
+        `ls-tree -l -- ${FAKE_HASH}:lib`,
         [
           '100644 blob 91a196c94559e760a527f944b2d973908e593abb     130	.editorconfig\n',
           '100644 blob b512c09d476623ff4bf8d0d63c29b784925dbdf8      12	.gitignore\n',
@@ -377,7 +300,7 @@ index 13e7d35..690a3d2 100644
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
 
       let stdout = '', stderr = ''
-      repo.getTree('master', 'lib', {}, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
+      repo.getTree(FAKE_HASH, 'lib', {}, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
         expect(code).toBe(0)
         expect(stdout).toBe('[{"name": ".editorconfig", "type": "blob", "size": "130", "objHash": "91a196c94559e760a527f944b2d973908e593abb", "mode": "100644"},{"name": ".gitignore", "type": "blob", "size": "12", "objHash": "b512c09d476623ff4bf8d0d63c29b784925dbdf8", "mode": "100644"},{"name": "README.md", "type": "blob", "size": "88", "objHash": "1b0d8e5c0a12fe3c967198d540fd50233a761ce9", "mode": "100644"},{"name": "index.js", "type": "blob", "size": "3149", "objHash": "3a76b27876c207c3a11e66e50326763af7617581", "mode": "100644"},{"name": "lib", "type": "tree", "size": "-", "objHash": "65e9481353ae1257eff5b1e4b2bd4b707bf905e9", "mode": "040000"},{"name": "package.json", "type": "blob", "size": "357", "objHash": "7c5cb3266f4338a1aa1a82a36eca3032e81504c0", "mode": "100644"},{"name": "yarn.lock", "type": "blob", "size": "15709", "objHash": "8fc51459a65bfb5b218b94ad3d6147e01e0ec5aa", "mode": "100644"}]')
         expect(stderr).toBe('')
@@ -387,7 +310,7 @@ index 13e7d35..690a3d2 100644
     test('recursive list content', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'ls-tree -l -r -- master',
+        `ls-tree -l -r -- ${FAKE_HASH}`,
         [
           '100644 blob 91a196c94559e760a527f944b2d973908e593abb     130	.editorconfig\n',
           '100644 blob b512c09d476623ff4bf8d0d63c29b784925dbdf8      12	.gitignore\n',
@@ -403,7 +326,7 @@ index 13e7d35..690a3d2 100644
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
 
       let stdout = '', stderr = ''
-      repo.getTree('master', undefined, { isRecursive: true }, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
+      repo.getTree(FAKE_HASH, undefined, { isRecursive: true }, (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
         expect(code).toBe(0)
         expect(stdout).toBe('[{"name": ".editorconfig", "type": "blob", "size": "130", "objHash": "91a196c94559e760a527f944b2d973908e593abb", "mode": "100644"},{"name": ".gitignore", "type": "blob", "size": "12", "objHash": "b512c09d476623ff4bf8d0d63c29b784925dbdf8", "mode": "100644"},{"name": "README.md", "type": "blob", "size": "88", "objHash": "1b0d8e5c0a12fe3c967198d540fd50233a761ce9", "mode": "100644"},{"name": "index.js", "type": "blob", "size": "3149", "objHash": "3a76b27876c207c3a11e66e50326763af7617581", "mode": "100644"},{"name": "lib/git-client/error-codes.js", "type": "blob", "size": "567", "objHash": "9c4e5b1da8e57e263297e770c0f0ec5638c188a4", "mode": "100644"},{"name": "lib/git-client/index.js", "type": "blob", "size": "12284", "objHash": "5ad0503156768f12126879e31ff5ef7af5339ff5", "mode": "100644"},{"name": "lib/symbolCounter.js", "type": "blob", "size": "1621", "objHash": "b05c599744b8274f77a97e2c6ac40c209f54ab5f", "mode": "100644"},{"name": "package.json", "type": "blob", "size": "357", "objHash": "7c5cb3266f4338a1aa1a82a36eca3032e81504c0", "mode": "100644"},{"name": "yarn.lock", "type": "blob", "size": "15709", "objHash": "8fc51459a65bfb5b218b94ad3d6147e01e0ec5aa", "mode": "100644"}]')
         expect(stderr).toBe('')
@@ -413,7 +336,7 @@ index 13e7d35..690a3d2 100644
     test('throw error on nonexistent hash or branch', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'ls-tree -l -- master:package.json',
+        `ls-tree -l -- ${FAKE_HASH}:package.json`,
         [],
         [ `fatal: Not a valid object name master:foo` ],
         128
@@ -421,7 +344,7 @@ index 13e7d35..690a3d2 100644
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
       const prohibited = jest.fn()
 
-      repo.getTree('master', 'package.json', {}, (data) => {
+      repo.getTree(FAKE_HASH, 'package.json', {}, (data) => {
         expect(data).toBe(ERROR_CODES.BRANCH_OR_COMMIT_OR_PATH_DOES_NOT_EXISTS)
         expect(prohibited).not.toHaveBeenCalled()
       }, prohibited)
@@ -430,7 +353,7 @@ index 13e7d35..690a3d2 100644
     test('throw error on not tree object type', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'ls-tree -l -- master:package.json',
+        `ls-tree -l -- ${FAKE_HASH}:package.json`,
         [],
         [ `fatal: not a tree object` ],
         128
@@ -438,26 +361,28 @@ index 13e7d35..690a3d2 100644
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
       const prohibited = jest.fn()
 
-      repo.getTree('master', 'package.json', {}, (data) => {
+      repo.getTree(FAKE_HASH, 'package.json', {}, (data) => {
         expect(data).toBe(ERROR_CODES.IS_NOT_A_DIRECTORY)
         expect(prohibited).not.toHaveBeenCalled()
       }, prohibited)
     })
+
   })
 
   describe('getBlobContent', () => {
+
     test('show content of blob', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'show master:test',
+        `show ${FAKE_HASH}:test`,
         [ 'FOO', 'BAR' ],
         [],
         0
       )
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
-      
+
       let stdout = '', stderr = ''
-      repo.getBlobContent('master', 'test', (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
+      repo.getBlobContent(FAKE_HASH, 'test', (data) => { stdout += data }, (data) => { stderr += data }, (code) => {
         expect(code).toBe(0)
         expect(stdout).toBe('FOOBAR')
         expect(stderr).toBe('')
@@ -501,7 +426,7 @@ index 13e7d35..690a3d2 100644
     test('throw error on file not found', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'show master:foo',
+        `show ${FAKE_HASH}:foo`,
         [],
         [ `fatal: Path 'foo' does not exist in 'master'` ],
         128
@@ -509,18 +434,20 @@ index 13e7d35..690a3d2 100644
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
       const prohibited = jest.fn()
 
-      repo.getBlobContent('master', 'foo', prohibited, (data) => {
+      repo.getBlobContent(FAKE_HASH, 'foo', prohibited, (data) => {
         expect(data).toBe(ERROR_CODES.FILE_NOT_FOUND)
         expect(prohibited).not.toHaveBeenCalled()
       }, prohibited)
     })
+
   })
 
   describe('getSymbolsCount', () => {
+
     test('character counting works', () => {
       const GitRepo = GitRepoGetter(
         '../../fixtures/repos/refactored-waddle/',
-        'ls-tree -l -r -- master',
+        `ls-tree -l -r -- ${FAKE_HASH}`,
         [
           '100644 blob 91a196c94559e760a527f944b2d973908e593abb     130	.editorconfig\n',
           '100644 blob b512c09d476623ff4bf8d0d63c29b784925dbdf8      12	.gitignore\n',
@@ -539,10 +466,12 @@ index 13e7d35..690a3d2 100644
       const repo = new GitRepo(REPOS_DIR, 'refactored-waddle')
       const prohibited = jest.fn()
 
-      repo.getSymbolsCount('master', prohibited, (data) => {
+      repo.getSymbolsCount(FAKE_HASH, prohibited, (data) => {
         expect(prohibited).not.toHaveBeenCalled()
         expect(data).toEqual({0:438,1:561,2:353,3:254,4:253,5:259,6:256,7:225,8:210,9:224,r:1555,o:1072,t:1506," ":3800,"=":342,u:368,e:2062,"\n":905,"[":35,"*":5,"]":35,i:1052,n:957,d:751,_:179,s:1279,y:426,l:578,p:646,a:1035,c:703,z:132,h:478,f:416,"-":341,m:466,g:478,w:133,"#":61,N:162,J:79,S:209,H:167,k:195,M:125,G:112,v:215,"`":22,"/":420,q:131,"(":429,"'":297,")":429,x:107,"{":175,R:285,D:146,",":273,"}":173,".":981,b:287,P:176,O:237,T:225,E:278,I:212,"!":24,U:83,":":222,'"':495,">":88,C:166,j:89,";":9,"|":7,"?":11,F:96,B:90,K:56,$:20,X:91,A:115,L:98,Y:64,V:61,"+":75,W:56,"\\":32,"С":1,"т":3,"р":5,"а":7,"ш":1,"н":6,"о":9,"в":5,"ы":4,"г":4,"л":2,"я":6,"д":3,"щ":2,"ф":1,"у":2,"к":7,"ц":1,"и":6,"м":1,"п":3,"э":2,"с":3,"е":5,"й":1,"х":1,"ч":1,"ю":1,"&":16,"^":13,Q:72,"%":7,"<":9,"@":61,"~":63,Z:66})
       })
     })
+
   })
+
 })

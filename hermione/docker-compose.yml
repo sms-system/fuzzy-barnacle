@@ -33,15 +33,13 @@ services:
       yarn
       NODE_ENV=test yarn build
       NODE_ENV=test yarn start
-    logging:
-      driver: none
 
   hermione:
     build: .
     volumes:
       - ./:/home/node/app/
-    ports:
-      - 8000:8000
+    # ports:
+    #   - 8000:8000
     depends_on:
       - app.internal
       - chrome

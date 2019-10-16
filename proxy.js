@@ -6,7 +6,7 @@ const PROXY = config.get('proxy')
 const API = config.get('api')
 const WEBAPP = config.get('webapp')
 
-const proxy = require('redbird')({ port: PROXY.port })
+const proxy = require('redbird')({ port: PROXY.port, bunyan: false })
 
 proxy.register(`${PROXY.hostname}`,     `${WEBAPP.hostname}:${WEBAPP.port}`)
 proxy.register(`${PROXY.hostname}/api`, `${API.hostname}:${API.port}/api`)

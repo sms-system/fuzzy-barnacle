@@ -1,7 +1,7 @@
 const fs = require('fs')
 const fsPromise = fs.promises
 const path = require('path')
-const { spawn } = require('child_process')
+let { spawn } = require('child_process')
 const config = require('../config')
 
 const gitConfig = config.get('git')

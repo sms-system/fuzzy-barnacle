@@ -6,3 +6,6 @@ proxy:
 
 api:
   url: 'http://app.internal:8005/api'
+
+git:
+  cloneTimeout: 1000
