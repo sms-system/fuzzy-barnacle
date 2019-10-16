@@ -6,6 +6,7 @@
 
 git clone https://github.com/xojs/xo fixtures/repos/xo
 git clone https://github.com/sms-system/refactored-waddle fixtures/repos/refactored-waddle
+*(Это проблема, так как состояние репозиториев может измениться в будущем и повлиять на интеграционные тесты)*
 
 А также установить npm зависимости
 
