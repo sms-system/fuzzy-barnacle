@@ -39,9 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-//@ts-ignore
 var node_fetch_1 = __importDefault(require("node-fetch"));
-//@ts-ignore
 var config_json_1 = require("../generated/config.json");
 exports["default"] = (function (_a) {
     var repo = _a.repo, _b = _a.branch, branch = _b === void 0 ? 'master' : _b, path = _a.path;
