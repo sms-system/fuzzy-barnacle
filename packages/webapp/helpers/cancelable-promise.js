@@ -1,11 +1,13 @@
-export default function (promise) {
-  let defferedReject
-  const wrap = new Promise((resolve, reject) => {
-    defferedReject = reject
-    promise
-      .then(res => resolve(res))
-      .catch(err => reject(err))
-  })
-  wrap.cancel = () => defferedReject('CANCEL')
-  return wrap
+"use strict";
+exports.__esModule = true;
+function default_1(promise) {
+    var defferedReject;
+    var wrap = new Promise(function (resolve, reject) {
+        defferedReject = reject;
+        promise
+            .then(function (res) { return resolve(res); })["catch"](function (err) { return reject(err); });
+    });
+    wrap.cancel = function () { return defferedReject('CANCEL'); };
+    return wrap;
 }
+exports["default"] = default_1;
