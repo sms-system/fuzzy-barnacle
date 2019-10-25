@@ -1,6 +1,6 @@
 const rewire = require('rewire')
-const ERROR_CODES = require('../lib/error-codes')
-const config = require('../config')
+const ERROR_CODES = require('../lib/error-codes').default
+const config = require('../config').default
 
 const GIT_BINARY = config.get('git').binary
 const REPOS_DIR = '../../fixtures/repos'
@@ -14,8 +14,12 @@ function nextTick (fn) { setTimeout(fn, 0) }
 // Monkey patch spawn method
 function GitRepoGetter (cwd, argsString, stdout = [], stderr = [], code = 0) {
   const GitRepo = rewire('../lib/git-repo')
-  GitRepo.__set__({
+  GitRepo.__set__('utils_1', {
+    ...require('../lib/utils'),
     getDelimeterKey: (postfix) => `__RND__${postfix}__`,
+  })
+  GitRepo.__set__('child_process_1', {
+    ...require('child_process'),
     spawn: (program, args, opts) => {
       expect(program).toBe(GIT_BINARY)
       expect(args.join(' ')).toBe(argsString)
@@ -36,7 +40,7 @@ function GitRepoGetter (cwd, argsString, stdout = [], stderr = [], code = 0) {
       }
     }
   })
-  return GitRepo
+  return GitRepo.default
 }
 
 describe('Git Repo class', () => {

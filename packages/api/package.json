@@ -8,7 +8,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "NODE_ENV=test jest --verbose"
+    "test": "NODE_ENV=test jest --verbose",
+    "tsc": "tsc"
   },
   "engines": {
     "node": ">=10.11.0"
@@ -19,7 +20,13 @@
     "p-queue": "^6.1.1"
   },
   "devDependencies": {
+    "@types/express": "^4.17.1",
+    "@types/jest": "^24.0.19",
+    "@types/mime-types": "^2.1.0",
+    "@types/node": "^12.11.7",
+    "@types/rewire": "^2.5.28",
     "jest": "^24.9.0",
-    "rewire": "^4.0.1"
+    "rewire": "^4.0.1",
+    "typescript": "^3.6.4"
   }
 }

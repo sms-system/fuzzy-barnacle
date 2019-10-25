@@ -1,6 +1,6 @@
 const rewire = require('rewire')
-const ERROR_CODES = require('../lib/error-codes')
-const config = require('../config')
+const ERROR_CODES = require('../lib/error-codes').default
+const config = require('../config').default
 
 const GIT_BINARY = config.get('git').binary
 const REPOS_DIR = '../../fixtures/repos'
@@ -10,13 +10,17 @@ function nextTick (fn) { setTimeout(fn, 0) }
 
 function GitReposDirGetter ({ rmFn = () => {}, spawnParams = [] } = {}) {
   const GitReposDir = rewire('../lib/git-repos-dir')
-  GitReposDir.__set__({
-    rmrf: rmFn,
+  GitReposDir.__set__('utils_1', {
+    ...require('../lib/utils'),
+    rmrf: rmFn
+  })
+  GitReposDir.__set__('child_process_1', {
+    ...require('child_process'),
     spawn: (program, args, opts) => {
       const [ cwd, argsString, doResolve ] = spawnParams
       expect(program).toBe(GIT_BINARY)
       expect(args.join(' ')).toBe(argsString)
-      expect(opts).toEqual({ cwd, stdio: [ 'ignore', 'ignore', 'pipe' ] })
+      expect(opts).toEqual({ cwd })
       return {
         stderr: { on () {}, destroy () {} },
         stdout: { on () {}, destroy () {} },
@@ -29,7 +33,7 @@ function GitReposDirGetter ({ rmFn = () => {}, spawnParams = [] } = {}) {
       }
     }
   })
-  return GitReposDir
+  return GitReposDir.default
 }
 
 describe('Git Repos dir', () => {

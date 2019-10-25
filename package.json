@@ -18,6 +18,8 @@
     "test": "yarn test:hermione && yarn test:unit"
   },
   "dependencies": {
+    "@types/convict": "^4.2.1",
+    "@types/js-yaml": "^3.12.1",
     "concurrently": "^5.0.0",
     "convict": "^5.1.0",
     "js-yaml": "^3.13.1",
