@@ -14,7 +14,7 @@ export default function RepoList () {
     dispatch(setRepoPos({ repo: undefined, branch: undefined, path: undefined }))
   }
   return (
-    <Layout breadcrumbs={[]}>
+    repoList.length? (<Layout breadcrumbs={[]}>
       <div className="Layout-Wrap"><div className="Layout-Scrollarea">
         <Table headers={[ 'Repository folder', '' ]} rows={
           repoList.map((repo: string) =>
@@ -22,7 +22,7 @@ export default function RepoList () {
           )
         } />
       </div></div>
-    </Layout>
+    </Layout>) : <>500</>
   )
 }
 

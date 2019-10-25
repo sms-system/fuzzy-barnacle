@@ -1,6 +1,6 @@
 const path = require('path')
 
-import { config } from '../config'
+import config from '../config'
 
 const { App } = require('uWebSockets.js')
 const useFolderServe = require('./utils/folder-serve-handler')

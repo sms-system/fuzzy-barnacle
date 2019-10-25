@@ -1,4 +1,4 @@
-const config = require('./config')
+const config = require('./config').default
 
 // WARNING! // Temporary solution. Replace to Nginx or HAProxy on production
 

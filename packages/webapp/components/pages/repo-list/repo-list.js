@@ -16,11 +16,11 @@ function RepoList() {
     if (repo) {
         dispatch(actions_1.setRepoPos({ repo: undefined, branch: undefined, path: undefined }));
     }
-    return (react_1["default"].createElement(layout_1["default"], { breadcrumbs: [] },
+    return (repoList.length ? (react_1["default"].createElement(layout_1["default"], { breadcrumbs: [] },
         react_1["default"].createElement("div", { className: "Layout-Wrap" },
             react_1["default"].createElement("div", { className: "Layout-Scrollarea" },
                 react_1["default"].createElement(table_1["default"], { headers: ['Repository folder', ''], rows: repoList.map(function (repo) {
                         return [react_1["default"].createElement(link_1["default"], { href: "/repos/" + repo }, repo), ''];
-                    }) })))));
+                    }) }))))) : react_1["default"].createElement(react_1["default"].Fragment, null, "500"));
 }
 exports["default"] = RepoList;
