@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var react_1 = __importStar(require("react"));
 var classname_1 = require("@bem-react/classname");
-var element_jsx_1 = __importDefault(require("../element.jsx"));
+var element_1 = __importDefault(require("../element"));
 require("./dropdown.styl");
 var cnDropdown = classname_1.cn('Dropdown');
 function Dropdown(props) {
@@ -24,6 +24,6 @@ function Dropdown(props) {
     return (react_1["default"].createElement("div", { className: [cnDropdown(null, [className]), cnDropdown({ 'is-openned': isOpenned })].join(' '), tabIndex: 0, onFocus: handleFocus, onBlur: handleFocus },
         react_1["default"].createElement("div", { className: cnDropdown('Current') },
             react_1["default"].createElement("span", null, currentItemText)),
-        element_jsx_1["default"](children, cnDropdown('Content'))));
+        element_1["default"](children, cnDropdown('Content'))));
 }
 exports["default"] = Dropdown;

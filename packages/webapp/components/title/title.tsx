@@ -1,6 +1,6 @@
 import React from 'react'
 import { cn } from '@bem-react/classname'
-import element from '../element.jsx'
+import element from '../element'
 
 import './title.styl'
 
