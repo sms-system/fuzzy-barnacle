@@ -89,6 +89,7 @@ exports["default"] = (function (url) { return __awaiter(void 0, void 0, void 0, 
                 }
                 return [4 /*yield*/, Promise.all(Object.values(sources).map(function (_a) {
                         var source = _a[0], _ = _a[1];
+                        //@ts-ignore
                         var getter = source(params);
                         if (getter && getter["catch"]) {
                             getter = getter["catch"](function (e) {

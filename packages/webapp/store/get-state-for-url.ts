@@ -28,6 +28,7 @@ export default async (url: string) => {
   if (pageName && pageDataSources[pageName]) { sources = { ...sources, ...pageDataSources[pageName](parsedParams) } }
 
   const data = await Promise.all( Object.values(sources).map(([source, _]) => {
+    //@ts-ignore
     let getter = source(params)
     if (getter && getter.catch) { getter = getter.catch((e: any) => {
       return { ERROR: e.ERROR || true }

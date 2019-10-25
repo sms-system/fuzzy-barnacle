@@ -1,8 +1,12 @@
+//@ts-ignore
 import fetch from 'node-fetch'
 
+//@ts-ignore
 import { API_URL } from '../generated/config.json'
 
-export default async ({ repo, branch, path }) => {
+type repoPos = { repo: string, branch: string, path: string }
+
+export default async ({ repo, branch, path }: repoPos) => {
   let url = `${API_URL}/repos/${repo}`
   if (branch) { url += `/tree/${branch}/${path || ''}` }
   const data = await fetch(url)

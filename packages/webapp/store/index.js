@@ -7,6 +7,7 @@ var redux_1 = require("redux");
 var logOnlyInProduction_1 = require("redux-devtools-extension/logOnlyInProduction");
 var reducer_1 = __importDefault(require("./reducer"));
 function default_1(state) {
+    //@ts-ignore
     return redux_1.createStore(reducer_1["default"], state, logOnlyInProduction_1.devToolsEnhancer());
 }
 exports["default"] = default_1;
